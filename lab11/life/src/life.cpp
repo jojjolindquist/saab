@@ -1,7 +1,3 @@
-// This is the CPP file you will edit and turn in.
-// Also remove these comments here and add your own.
-// TODO: remove this comment header
-
 #include <iostream>
 #include "grid.h"
 #include "lifeutil.h"
@@ -52,65 +48,86 @@ int checkNeighbors(Grid<string>& board, int row, int col){
     //kolla runt om koordinat, om in bounds kolla om X, annars fortsätt
     for (int i=-1; i<2; i++){
         for(int j=-1; j<2; j++){
-          if(i != 0 && j != 0 && board.inBounds(row+i,col+j)){ //sålänge vi inte är på den koordinat vars grannar vi ska kolla
-               string neighbor = board.get(row+i,col+j); //om giltig, hämta värdet där
-               if (neighbor == "X"){
-                   numberNeighbors++;
+          bool condition = (i != 0 && j == 0 ) || ( j!= 0 && i == 0) || (j != 0 && i != 0); //i och j får ej vara 0 samtidigt (egna koordinaten)
+          if(condition && board.inBounds(row+i,col+j)){ //sålänge vi är in bounds och inte är på den koordinat vars grannar vi ska kolla
+               string neighbor = board.get(row+i,col+j); //giltig koordinat, hämta nu värdet där
+               if (neighbor == "X"){ //om det är en cell där
+                   numberNeighbors++; //öka antalet grannar
           }}
     }
     }
     return numberNeighbors;
 }
 
-void changeBoard(Grid<string>& board, int row, int col, int numberNeighbors){
+void changeBoard(Grid<string>& board, int row, int col, int numberNeighbors, string originalValue){
+
     if(numberNeighbors < 2){ //alla celler med <2 grannar blir -
         board.set(row, col, "-");
     }
-    else if(numberNeighbors == 3){
+    else if(numberNeighbors == 3){ //de med tre grannar börjar leva
         board.set(row, col, "X");
     }
-   else if(numberNeighbors >= 4){
+   else if(numberNeighbors >= 4){ //de med >=4 grannar dör
         board.set(row, col, "-");
+    }
+    else if (numberNeighbors == 2){ //vill ha samma värde som original-board
+        board.set(row,col, originalValue);
     }
 }
 
 
 void nextGenBoard(Grid<string>& board){
+    //copyBoard.deepCopy(board);
     int rows = board.numRows(); //hämtar antalet rader
     int cols = board.numCols(); //hämtar antalet kolumner
+    Grid<string> nextGenBoard = Grid<string>(rows, cols);//vill bygga upp en ny board sen
     for (int i=0; i<rows; i++){
         for(int j=0; j<cols; j++){
           int numberNeighbors = checkNeighbors(board, i, j);
-          changeBoard(board, i, j, numberNeighbors);
+          changeBoard(nextGenBoard, i, j, numberNeighbors, board.get(i,j));
     }
     }
+    board = nextGenBoard;
 }
 
 int main() {
-
-    // TODO: Finish the program!
     string filename;
     string welcomeMessage = "Welcome to the TDDD86 Game of Life, "
                             "a simulation of the lifecycle of a bacteria colony.""\n"
                             " Cells (X) live and die by the following rules: \n"
-                                                                   "- A cell with 1 or fewer neighbours dies.\n"
-                                                                   "- Locations with 2 neighbours remain stable.\n"
-                                                                   "- Locations with 3 neighbours will create life.\n"
-                                                                   "- A cell with 4 or more neighbours dies." ;
-
+                            "- A cell with 1 or fewer neighbours dies.\n"
+                            "- Locations with 2 neighbours remain stable.\n"
+                            "- Locations with 3 neighbours will create life.\n"
+                            "- A cell with 4 or more neighbours dies." ;
     cout << welcomeMessage << endl;
     cout << "Grid input file name? ";
     cin >> filename;
 
     Grid<string> board = makeBoard(filename); //skapar en grid utifrån vår fil
+    printBoard(board); //visar board
+    bool continueProgram = true; //vi fortsätter programmet när denna är true
+    string answer;
+    while(continueProgram){
+        cout << "a)nimate, t)ick, q)uit?" << endl;
+        cin >> answer;
+        if (answer == "a"){
+            while(answer == "a"){
+                clearConsole();
+                nextGenBoard(board);
+                printBoard(board);
+                pause(100);
+               // cin >> answer;
+            }
+        }
+        else if (answer == "t"){
+            nextGenBoard(board); //skapar nästa generations board
+            printBoard(board);
+        }
+        else if (answer == "q"){
+            cout << "Have a nice Life!" << endl;
+            continueProgram = false;
+        }
+    }
 
-    cout << board.toString()<<endl;
-    printBoard(board);
-    nextGenBoard(board);
-    //while (getline(input, line)) { cout << line << endl; //skriver ut varje rad i .txt-filen
-    //}
-    //input.close();
-    //string line;
-    //getline(input, line);
     return 0;
 }
