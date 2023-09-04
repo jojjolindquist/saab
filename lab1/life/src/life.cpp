@@ -5,7 +5,9 @@
 #include <string>
 using namespace std;
 
-Grid<string> makeBoard(const string filename){ //skapar en board utifrån ett filnamn
+/*skapar en board (Grid) utifrån ett filnamn (string) som innehåller
+ * antalet kolumner och rader */
+Grid<string> makeBoard(const string filename){
     string fileName;
     int rows;       //deklarerar variabler
     int columns;
@@ -27,7 +29,8 @@ Grid<string> makeBoard(const string filename){ //skapar en board utifrån ett fi
     }
     return board;
 }
-
+/*Skriver ut board (Grid) på ett tydligt sätt. Bygger upp en sträng
+ * med radbryt efter varje rad i Grid-objektet.*/
 void printBoard(Grid<string>& board){
     int rows = board.numRows(); //hämtar antalet rader
     int cols = board.numCols(); //hämtar antalet kolumner
@@ -42,7 +45,9 @@ void printBoard(Grid<string>& board){
     }
     cout<<boardToShow<<endl;
 }
-
+/* Tar in en board (Grid-objekt) samt vilken rad och kolumn i objektet vars grannar ska
+ * räknas. Kollar runt om positionen, om dess granne är ett X (cell) räknar vi upp antalet
+ * grannar och returnerar till sist antalet.*/
 int checkNeighbors(Grid<string>& board, int row, int col){
     int numberNeighbors = 0;
     //kolla runt om koordinat, om in bounds kolla om X, annars fortsätt
@@ -58,7 +63,8 @@ int checkNeighbors(Grid<string>& board, int row, int col){
     }
     return numberNeighbors;
 }
-
+/*Ändrar på boards (Grid-objektets) celler utifrån antalet grannar. Tar en position (row, col)
+ * och positionens antal grannar, och ändrar utifrån antalet positionens värde (- eller X). */
 void changeBoard(Grid<string>& board, int row, int col, int numberNeighbors, string originalValue){
 
     if(numberNeighbors < 2){ //alla celler med <2 grannar blir -
@@ -75,7 +81,8 @@ void changeBoard(Grid<string>& board, int row, int col, int numberNeighbors, str
     }
 }
 
-
+/*Tar in en board (Grid) och kallar på metoder som räknar varje positions
+ * grannnar, samt utifrån resultatet ändrar boards utseende inför nästa generation. */
 void nextGenBoard(Grid<string>& board){
     //copyBoard.deepCopy(board);
     int rows = board.numRows(); //hämtar antalet rader
