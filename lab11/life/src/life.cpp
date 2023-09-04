@@ -111,7 +111,7 @@ int main() {
         cout << "a)nimate, t)ick, q)uit?" << endl;
         cin >> answer;
         if (answer == "a"){
-            while(answer == "a"){
+            for(int i = 0; i < 50; i++){
                 clearConsole();
                 nextGenBoard(board);
                 printBoard(board);
