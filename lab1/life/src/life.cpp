@@ -1,3 +1,6 @@
+/*Ett program för Game of Life, som är en simulering som modellerar livscykeln hos bakterier med hjälp av ett
+* tvådimensionellt rutnät av celler. Givet ett initialt mönster simulerar spelet födelse och död hos framtida ge-
+* nerationer av celler med en uppsättning enkla regler. Författare: Johanna Lindquist, johli622, Stina Åström, stias606.*/
 #include <iostream>
 #include "grid.h"
 #include "lifeutil.h"
@@ -31,7 +34,7 @@ Grid<string> makeBoard(const string filename){
 }
 /*Skriver ut board (Grid) på ett tydligt sätt. Bygger upp en sträng
  * med radbryt efter varje rad i Grid-objektet.*/
-void printBoard(Grid<string>& board){
+void printBoard(const Grid<string>& board){
     int rows = board.numRows(); //hämtar antalet rader
     int cols = board.numCols(); //hämtar antalet kolumner
     string boardToShow;
@@ -48,13 +51,12 @@ void printBoard(Grid<string>& board){
 /* Tar in en board (Grid-objekt) samt vilken rad och kolumn i objektet vars grannar ska
  * räknas. Kollar runt om positionen, om dess granne är ett X (cell) räknar vi upp antalet
  * grannar och returnerar till sist antalet.*/
-int checkNeighbors(Grid<string>& board, int row, int col){
+int checkNeighbors(const Grid<string>& board, const int row, const int col){
     int numberNeighbors = 0;
     //kolla runt om koordinat, om in bounds kolla om X, annars fortsätt
     for (int i=-1; i<2; i++){
         for(int j=-1; j<2; j++){
-          bool condition = (i != 0 && j == 0 ) || ( j!= 0 && i == 0) || (j != 0 && i != 0); //i och j får ej vara 0 samtidigt (egna koordinaten)
-          if(condition && board.inBounds(row+i,col+j)){ //sålänge vi är in bounds och inte är på den koordinat vars grannar vi ska kolla
+          if(!(i==0 && j==0) && board.inBounds(row+i,col+j)){
                string neighbor = board.get(row+i,col+j); //giltig koordinat, hämta nu värdet där
                if (neighbor == "X"){ //om det är en cell där
                    numberNeighbors++; //öka antalet grannar
@@ -64,8 +66,8 @@ int checkNeighbors(Grid<string>& board, int row, int col){
     return numberNeighbors;
 }
 /*Ändrar på boards (Grid-objektets) celler utifrån antalet grannar. Tar en position (row, col)
- * och positionens antal grannar, och ändrar utifrån antalet positionens värde (- eller X). */
-void changeBoard(Grid<string>& board, int row, int col, int numberNeighbors, string originalValue){
+ * och positionens antal grannar, och ändrar (utifrån antalet) positionens värde (- eller X). */
+void changeBoard(Grid<string>& board, const int row, const int col, const int numberNeighbors, const string originalValue){
 
     if(numberNeighbors < 2){ //alla celler med <2 grannar blir -
         board.set(row, col, "-");
@@ -76,7 +78,7 @@ void changeBoard(Grid<string>& board, int row, int col, int numberNeighbors, str
    else if(numberNeighbors >= 4){ //de med >=4 grannar dör
         board.set(row, col, "-");
     }
-    else if (numberNeighbors == 2){ //vill ha samma värde som original-board
+    else {
         board.set(row,col, originalValue);
     }
 }
