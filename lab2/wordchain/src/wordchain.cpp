@@ -4,6 +4,7 @@
 #include <queue>
 #include <stack>
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
 const string ALPHABET  = "abcdefghijklmnopqrstuvwxyz";
@@ -20,40 +21,47 @@ void printSolution(stack<string>& result, const string& w1, const string& w2){
     cout<<"Have a nice day."<<endl;
 }
 
-bool wordInList(const vector<string>& dictionary, const string& word) {
+bool wordInList(const unordered_multimap<string,string>& engDictionary, const string& word) {
     bool foundWord = false;
-    for (int i =0; i < dictionary.size(); i++){
-        if (dictionary[i] == word){ //om ordet finns i vår ordlista
+    string firstLetter = string(1,word[0]);
+    //TODO: använd find() för att hitta elementen för en key, och iterera bland dessa element
+    //och kolla om ordet finns i listan.
+    for (int i =0; i < engDictionary.size(); i++){
+        if (engDictionary[i] == word){ //om ordet finns i vår ordlista
             foundWord = true; //returnera true
             break;
         }
     }
     return foundWord;
 }
-vector<string> createDictionary(){
+unordered_multimap<string,string> createDictionary(){
     vector<string> dictionary; //deklarerar en vektor
-    string arr[200]; //oanvänd
+    unordered_multimap<string,string> engDictionary;
     ifstream words;
     string filename ="dictionary.txt";
     words.open(filename.c_str());
     string word;
     while (getline(words, word)) {
+        string firstLetter = string(1,word[0]);
+        engDictionary.insert(engDictionary.begin(), pair<string,string> (firstLetter, word)); //källa: https://www.geeksforgeeks.org/unordered_multimap-insert-in-c-stl/
+        //för varje ord lägger vi de hos en nyckel med samma första bokstav.
+        //begin() returnerar en iterator som pekar på första elementet i vår multimap.
         dictionary.push_back(word); //lägger till orden i slutet av vektorn, storlek ändras om behövs
     }
     words.close();
-    return dictionary;
+    return engDictionary;
 
 
 }
 
-vector<string> findNeighbours(const string& word, const vector<string>& dictionary){
+vector<string> findNeighbours(const string& word, const unordered_multimap<string,string>& engDictionary){
     vector<string> neighbours;
 
     for (int i = 0; i < word.length(); i ++){ // går igenom alla bokstäver i ordet
         for (char letter : ALPHABET){ // går igenom alla bokstäver i alfabetet
             string copyWord = word;
             copyWord[i] = letter; //byter ut indexet till alla 26 bokstäver
-            if (wordInList(dictionary, copyWord)){ //kollar om giltigt engelskt ord
+            if (wordInList(engDictionary, copyWord)){ //kollar om giltigt engelskt ord
                 neighbours.push_back(copyWord); //isåfall lägg till som granne
             }
             if (copyWord == "data"){
@@ -64,7 +72,7 @@ vector<string> findNeighbours(const string& word, const vector<string>& dictiona
     return neighbours;
 }
 
-void wordChain(const string& w1, const string& w2, const vector<string>& dictionary){
+void wordChain(const string& w1, const string& w2, const unordered_multimap<string,string>& engDictionary){
     queue<stack<string>> wordChains; // skapar tom queue innehållande stacks
     stack<string> s1;
     s1.push(w1); // lägger till första ordet i tom stack
@@ -83,7 +91,7 @@ void wordChain(const string& w1, const string& w2, const vector<string>& diction
             printSolution(partialChain, w1, w2);
             break;
         }else{
-            vector<string> neighbors = findNeighbours(topWord,dictionary);
+            vector<string> neighbors = findNeighbours(topWord,engDictionary);
             for (string neighbor : neighbors) { // går igenom alla grannar till ordet
                //cout << neighbor << endl;
                 if (!wordInList(usedWords, neighbor)){ // kolla ifall ordet är använt
@@ -110,8 +118,8 @@ int main() {
     string secondWord;
     cin >> firstWord; // hämtar första ordet
     cin >> secondWord; // hämtar andra ordet
-    vector<string> dictionary = createDictionary(); //skapar en ordlista
-    wordChain(firstWord, secondWord, dictionary);
+    unordered_multimap<string,string> engDictionary = createDictionary(); //skapar en ordlista
+    wordChain(firstWord, secondWord, engDictionary);
 
     return 0;
 }
