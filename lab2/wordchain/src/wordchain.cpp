@@ -58,8 +58,6 @@ unordered_multimap<string,string> createDictionary(int wordLength){
     }
     words.close();
     return engDictionary;
-
-
 }
 
 vector<string> findNeighbours(const string& word, const unordered_multimap<string,string>& engDictionary){
