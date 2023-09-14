@@ -1,3 +1,6 @@
+/* En variant av spelet hänga gubbe, då datorn spelar fult. Den väljer utifrån den gissade bokstaven
+ * den ordfamilj (där alla ord har den bokstaven på samma position) med flest värden (ord), varav
+ * det blir svårare för spelaren att gissa rätt. */
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -9,7 +12,8 @@ using namespace std;
 
 const string ALPHABET  = "abcdefghijklmnopqrstuvwxyz";
 
-vector<string> createDictionary(int wordLength){
+/* Skapar en engelsk ordbok (dictionary) i form av en vektor av strängar av given (ord)längd.*/
+vector<string> createDictionary(const int& wordLength){
     //unordered_multimap<string,string> engDictionary;
     vector<string> engDictionary;
     ifstream words;
@@ -25,6 +29,8 @@ vector<string> createDictionary(int wordLength){
     return engDictionary;
 }
 
+/*Tar in en vektor av använda/gissade bokstäver (strängar) samt en bokstav (sträng)
+ * och kontrollerar om bokstaven finns i vektorn. Returnernar en bool. */
 bool letterIsUsed(const vector<string>& usedLetters, const string& letter){
     for (int i = 0; i < usedLetters.size(); i++){
         if (usedLetters[i] == letter){
@@ -34,10 +40,10 @@ bool letterIsUsed(const vector<string>& usedLetters, const string& letter){
     return false;
 }
 
-/* Tar in en dictionary och en bokstav och returnerar en unordered multimap där varje
+/* Tar in en dictionary (vektor) och en bokstav (sträng) och returnerar en unordered multimap där varje
  * key är en sträng där bokstaven antingen finns eller inte finns på varje position.
  * Värdena till varje key är de ord där bokstaven finns på dessa positioner.*/
-unordered_multimap<string, string> makePartitions(const vector<string>& engDictionary, const string letter){
+unordered_multimap<string, string> makePartitions(const vector<string>& engDictionary, const string& letter){
     unordered_multimap<string, string> wordFamilies;
     for (string word : engDictionary){
         string key = "";
@@ -54,70 +60,168 @@ unordered_multimap<string, string> makePartitions(const vector<string>& engDicti
     return wordFamilies;
 }
 
-void chooseFamily(vector<string>& engDictionary, const unordered_multimap<string, string>& wordFamilies){
-    for(auto familiesIt = wordFamilies.begin(); familiesIt != wordFamilies.end(); familiesIt++){ //returnerar iterator som börjar vid start
-        auto key = familiesIt->first; //first innebär hämta nyckeln (k) i nyckel-värde-paret (k,v)
-        int members = wordFamilies.count(key); //räknar antalet ord (medlemmar) i varje familj
-    //TODO: spara undan det största värdet varje omgång, gör sedan om vald familj till vektor och sätt engDictionary till den.
-        //TESTA
+/* Tar in en ordlängd (int) och returnerar en sträng lika många "-" som ordlängden.*/
+string createEmptyWordForm(const int& wordLength){
+    string emptyWordForm = "";
+    for(int i = 0; i < wordLength; i++){
+        emptyWordForm.append("-");
+    }
+    return emptyWordForm;
+}
+
+/* Tar in två olika ordformer (tex (a--a) och (-bb-)) som garanterat har samma längd.
+ * Slår sedan ihop dessa ordformer till en (tex (abba)). */
+void mergeForms(string& currentWordForm, const string& mergeWordForm){
+    for (int i = 0; i < currentWordForm.length(); i++){
+        if(string(1,mergeWordForm[i]) != "-"){ //om symbolen på index i har någon bokstav
+            currentWordForm[i] = mergeWordForm[i]; //sätt då den index i för currentWordForm
+        }
     }
 }
 
-int main() {
-    cout << "Welcome to Hangman." << endl;
-    bool validLength = false;
-    bool showWords = false;
-    vector<string> engDictionary;
-    int guesses;
-    vector<string> usedLetters; //initerar en vektor för använda bokstäver
-    while(!validLength){
-        cout << "Please choose a valid word length:" << endl;
-        int wordLength;
-        cin >> wordLength; //hämtar ordlängd
-        engDictionary = createDictionary(wordLength);
-        if(!engDictionary.empty()){ //om giltig ordlängd
-            validLength = true; //gå ur loopen
+/* Tar in en ordlista (vektor) och en multimap vars nyckel är ett mönster och värden alla ord med det bokstavsmönstret.
+ * Jämför sedan familjernas storlek (antal värden) och sparar undan den nyckel störst familj varje omgång. Metoden gör
+ * sedan om den största familjen till en vektor av strängar (värdena), samt tilldelar engDictionary den.
+ * Metoden returnerar mönstret (nyckeln) för den största familjen.*/
+string chooseFamily(vector<string>& engDictionary, const unordered_multimap<string, string>& wordFamilies){
+    pair<int, string> biggestFamily;//lagrar information om största familj på form (antal ord, nyckel i multimap)
+    biggestFamily.first = -1; //ingen annan kommer ha -1 som antal ord, initierar.
+    biggestFamily.second = "";
+    auto familiesIt = wordFamilies.begin();
+    while(familiesIt != wordFamilies.end()){
+        auto key = familiesIt->first; //first innebär hämta nyckeln (k) i nyckel-värde-paret (k,v)
+        int members = wordFamilies.count(key); //räknar antalet ord (medlemmar) i varje familj
+        if (members > biggestFamily.first){ //hittat en familj med fler medlemmar?
+            biggestFamily.first = members;
+            biggestFamily.second = key;
         }
+       advance(familiesIt, members); //ökar iteratorn med antal värden i key, så vi inte itererar genom alla par (onödigt)
+                                    //källa: https://stackoverflow.com/questions/1057529/how-to-increment-an-iterator-by-2
     }
-    bool validNumber = false;
-    while(!validNumber){
-        cout << "Enter number of guesses you want (>0):" << endl;
-        cin >> guesses;
-        //TODO: fråga om datatypskontroll
-        if(guesses > 0){
-            validNumber = true;
-        }
+    vector<string> newDictionary;
+    auto familyIt = wordFamilies.find(biggestFamily.second);//returnerar iterator som börjar vid orden med firstLetter
+    for(int i = 0; i < biggestFamily.first; i++){
+        string word = familyIt->second; //second innebär hämta värdet (v) i nyckel-värde-paret (k,v)
+        newDictionary.push_back(word); //
+        familyIt++;
     }
-    cout << "Do you want to see the available words after each round? (Y/N):" << endl;
-    string answer;
-    cin >> answer;
-    if (answer == "Y" || answer == "y")
-    {
-        showWords = true; //nu vill vi visa ordlistan varje runda
-    }
-    //TODO: en metod som visar allting.
-    while(guesses > 0){ //Sätt guesses till 0 när man gissat rätt!
-        cout << "Guess an unused letter: " << endl;
-        string guessedLetter;
-        cin >> guessedLetter;
-        if (!letterIsUsed(usedLetters, guessedLetter)){ //inte gissat denna bokstav förut
-            //....
-            unordered_multimap<string,string> wordFamilies = makePartitions(engDictionary, guessedLetter);
-            chooseFamily(engDictionary, wordFamilies);
-            //om strängen som returnernas = tom, dra bort gissningar
-            usedLetters.push_back(guessedLetter);
-        }
-    }
+    engDictionary = newDictionary;
+    return biggestFamily.second;
+}
 
-    //TODO: 1 metod för att visa UI som tar in strängen.
-    //TODO: 1 metod som tar in gissade bokstaven och returnerar en map med ordfamilj
-    //TODO: 1 metod som kollar om gissat förut på ordet.
-    //TODO: 1 metod som returnerar vilken ordfamilj vi ska ta.
-    //TODO: ta bort gissning om ordfamilj inte innehåller bokstaven
-    //TODO: visa ordet om slut på gissningar
-    //TODO: gratulera om gissat rätt
-    //Ändra dictionaryn varje gång efter ordfamilj, referens i metoderna
-    //(c) Be anva ̈ndaren gissa en bokstav och upprepa till hen gissar en bokstav hen ej gissat fo ̈rut. Sa ̈kersta ̈ll
-    //att exakt en bokstav matats in och att det a ̈r en bokstav i alfabetet.
+/*En metod för att visa allt det grafiska med spelet. Visar gissade ord, antal gissningar kvar, ordlistan om det är valt,
+ * samt bokstäverna som gissats rätt i ordet. */
+void showHangman(const vector<string>& usedLetters, int& guesses, const bool& showWords, const string& currentWordForm, const vector<string>& dictionary){
+    string showUsedLetters;
+    for (string letter : usedLetters){ //skapa en läslig sträng av alla bokstäver
+        showUsedLetters.append(letter + " ");
+    }
+    cout << "Used letters: " + showUsedLetters << endl;
+    cout << "Guesses left: " + to_string(guesses) << endl;
+    cout << "Word: " + currentWordForm << endl;
+    if(showWords){ //om vi vill visa ordlistan
+        cout << "Available words in wordlist: " << endl;
+        for (string word : dictionary){
+            cout << word << endl;
+        }
+    }
+}
+
+/* Tar in ett ordmönster och returnerar false om alla chars är "-" (dvs den gissade bokstaven finns inte
+ * i ordfamiljen). Annars returneras true. */
+bool guessedLetterInWord(string wordForm){
+    for(char letter : wordForm){
+        if (string(1, letter) != "-"){
+            return true;
+        }
+    }
+    return false;
+}
+
+/* Tar in ett ordmönster, och om varje char är en bokstav (dvs inte "-"), returnerar true
+ * (dvs användaren har gissat rätt). Annars returneras false. */
+bool guessedRight(string wordForm){
+    for(char letter : wordForm){
+        if (string(1, letter) == "-"){
+            return false;
+        }
+    }
+    return true;
+}
+
+int main() {
+    bool play = true;
+    while (play){
+        cout << "Welcome to Hangman." << endl;
+        bool validLength = false;
+        bool showWords = false;
+        string currentWordForm;
+        vector<string> engDictionary;
+        int guesses;
+        vector<string> usedLetters; //initerar en vektor för använda bokstäver
+        while(!validLength){
+            cout << "Please choose a valid word length:" << endl;
+            int wordLength;
+            cin >> wordLength; //hämtar ordlängd
+            engDictionary = createDictionary(wordLength);
+            if(!engDictionary.empty()){ //om giltig ordlängd
+                validLength = true; //gå ur loopen
+                currentWordForm = createEmptyWordForm(wordLength);
+            }
+        }
+        bool validNumber = false;
+        while(!validNumber){
+            cout << "Enter number of guesses you want (>0):" << endl;
+            cin >> guesses;
+            //TODO: fråga om datatypskontroll
+            if(guesses > 0){
+                validNumber = true;
+            }
+        }
+        cout << "Do you want to see the available words after each round? (Y/N):" << endl;
+        string answer;
+        cin >> answer;
+        if (answer == "Y" || answer == "y")
+        {
+            showWords = true; //nu vill vi visa ordlistan varje runda
+        }
+        while(guesses > 0){ //Sätt guesses till 0 när man gissat rätt!
+            showHangman(usedLetters, guesses, showWords, currentWordForm, engDictionary);
+            cout << "Guess an unused letter: " << endl;
+            string guessedLetter;
+            cin >> guessedLetter;
+            if (!letterIsUsed(usedLetters, guessedLetter)){ //inte gissat denna bokstav förut
+                unordered_multimap<string,string> wordFamilies = makePartitions(engDictionary, guessedLetter);
+                //kolla om wordfamilies bara innehåller ett ord
+                string mergeWordForm = chooseFamily(engDictionary, wordFamilies);
+                if (!guessedLetterInWord(mergeWordForm)){//om det gissade ordet inte finns med i vår nya ordfamilj
+                    guesses--; //ta bort en gissning
+                }
+                mergeForms(currentWordForm, mergeWordForm); //slå ihop den nya bokstavsformen med den gamla (tex (a--a) med (-bb-))
+                //om strängen som returnernas = tom, dra bort gissningar
+                if (guessedRight(currentWordForm)){
+                    showHangman(usedLetters, guesses, showWords, currentWordForm, engDictionary);
+                    guesses = -1; //sätter till en siffra som ej går att få om man förlorar
+                }
+                usedLetters.push_back(guessedLetter);
+            }
+        }
+        if (guesses == -1){
+            cout << "Congratulations! You guessed the right word! ";
+        }
+        else{ //förlorat
+            currentWordForm = engDictionary[0]; //sätter "valda" ordet till första ordet i vår dictionary
+            showHangman(usedLetters, guesses, showWords, currentWordForm, engDictionary);
+            cout << "You lost, the word was: " + currentWordForm + " " << endl;
+        }
+
+        cout << "Do you want to play again? (Y/N):" << endl;
+        string playAgain;
+        cin >> playAgain;
+        if (playAgain == "N" || playAgain == "n")
+        {
+            play = false; //nu vill vi visa ordlistan varje runda
+        }
+    }
     return 0;
 }

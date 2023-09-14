@@ -1,3 +1,6 @@
+/* Programmet Ordkedja förbinder ett ord till ett annat genom att byta ut en bokstav i taget under
+ * villkoret att ett giltigt ord bildas i varje delsteg och att alla ord i kedjan är lika långa.
+ * Programmet skriver ut den kortaste ordkedjan mellan dessa två ord. */
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -9,6 +12,8 @@ using namespace std;
 
 const string ALPHABET  = "abcdefghijklmnopqrstuvwxyz";
 
+/* Skriver ut varje steg som ordet gått genom för att bli det andra ordet
+ * genom att bygga upp en sträng som tar med varje ord på stacken. */
 void printSolution(stack<string>& result, const string& w1, const string& w2){
     string solution;
     while(!result.empty()){ //medan stack inte är tom
@@ -26,6 +31,9 @@ void printSolution(stack<string>& result, const string& w1, const string& w2){
     cout<<"Have a nice day."<<endl;
 }
 
+/* Tar in en ordlista (multimap) och ett ord. Kollar sedan om ordet finns i ordlistan genom att
+ * slå upp första bokstaven i ordet och sedan iterera genom alla ord i ordlistan som också börjar på
+ * bokstaven. Returnerar true om ordet hittas, annars false. */
 bool wordInList(const unordered_multimap<string,string>& engDictionary, const string& word) {
     string firstLetter = string(1,word[0]); //källa: https://www.geeksforgeeks.org/unordered_multimap-insert-in-c-stl/
     //använd find() för att hitta elementen för en key, och iterera bland dessa element
@@ -42,6 +50,9 @@ bool wordInList(const unordered_multimap<string,string>& engDictionary, const st
     return false;
 }
 
+/* Tar in en ordlängd (int) och lägger till alla ord med den ordlängden i en ordlista (multimap), där
+ * nyckeln är första bokstaven i ordet och värdena alla ord med detta prefix. Returnerar
+ * sedan denna multimap (ordlistan).*/
 unordered_multimap<string,string> createDictionary(int wordLength){
     unordered_multimap<string,string> engDictionary;
     ifstream words;
@@ -60,9 +71,11 @@ unordered_multimap<string,string> createDictionary(int wordLength){
     return engDictionary;
 }
 
+/* Tar in ett ord (sträng) och byter ut varje position till varje bokstav i alfabetet. Kollar därefter
+ * i ordlistan om det nya ordet är ett giltigt ord. Om det är ett giltigt ord läggs det till i en vektor
+ * av strängar, vilken returneras. */
 vector<string> findNeighbours(const string& word, const unordered_multimap<string,string>& engDictionary){
     vector<string> neighbours;
-
     for (int i = 0; i < word.length(); i ++){ // går igenom alla bokstäver i ordet
         for (char letter : ALPHABET){ // går igenom alla bokstäver i alfabetet
             string copyWord = word;
@@ -75,6 +88,8 @@ vector<string> findNeighbours(const string& word, const unordered_multimap<strin
     return neighbours;
 }
 
+/* Tar in en vektor av ord som använts samt ett ord (sträng). Kollar om ordet finns i vektorn,
+ * returnerar isåfall true. Annars returneras false. */
 bool wordIsUsed(const vector<string>& usedWords, const string& word){
     for (int i = 0; i < usedWords.size(); i++){
         if (usedWords[i] == word){
@@ -84,6 +99,9 @@ bool wordIsUsed(const vector<string>& usedWords, const string& word){
     return false;
 }
 
+/* Tar in två ord (strängar) av lika längd, som det ska skapas en ordkedja mellan. Använder bredd-först-sökning
+ * och flera andra metoder för att hitta den kortaste kedjan av giltiga engelska ord. När hittad skrivs denna kedja
+ * ut via anrop till annan metod. */
 void wordChain(const string& w1, const string& w2, const unordered_multimap<string,string>& engDictionary){
     queue<stack<string>> wordChains; // skapar tom queue innehållande stacks
     stack<string> s1;
@@ -107,11 +125,9 @@ void wordChain(const string& w1, const string& w2, const unordered_multimap<stri
                     usedWords.push_back(neighbor); // lägger till att vi andvänt ordet
                     wordChains.push(copyStack); // lägger till kedjan längst bak i queue
                 }
-
             }
         }
-}
-
+    }
 }
 
 int main() {
