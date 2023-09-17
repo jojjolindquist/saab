@@ -116,15 +116,15 @@ void showHangman(const vector<string>& usedLetters, int& guesses, const bool& sh
     for (string letter : usedLetters){ //skapa en läslig sträng av alla bokstäver
         showUsedLetters.append(letter + " ");
     }
-    cout << "Used letters: " + showUsedLetters << endl;
-    cout << "Guesses left: " + to_string(guesses) << endl;
-    cout << "Word: " + currentWordForm << endl;
     if(showWords){ //om vi vill visa ordlistan
         cout << "Available words in wordlist: " << endl;
         for (string word : dictionary){
             cout << word << endl;
         }
     }
+    cout << "Used letters: " + showUsedLetters << endl;
+    cout << "Guesses left: " + to_string(guesses) << endl;
+    cout << "Word: " + currentWordForm << endl;
 }
 
 /* Tar in ett ordmönster och returnerar false om alla chars är "-" (dvs den gissade bokstaven finns inte
@@ -175,7 +175,7 @@ int main() {
             cin >> guesses;
             //TODO: fråga om datatypskontroll
             if(guesses > 0){
-                validNumber = true;
+              validNumber = true;
             }
         }
         cout << "Do you want to see the available words after each round? (Y/N):" << endl;
@@ -192,9 +192,8 @@ int main() {
             cin >> guessedLetter;
             if (!letterIsUsed(usedLetters, guessedLetter)){ //inte gissat denna bokstav förut
                 unordered_multimap<string,string> wordFamilies = makePartitions(engDictionary, guessedLetter);
-                //kolla om wordfamilies bara innehåller ett ord
                 string mergeWordForm = chooseFamily(engDictionary, wordFamilies);
-                if (!guessedLetterInWord(mergeWordForm)){//om det gissade ordet inte finns med i vår nya ordfamilj
+                if (!guessedLetterInWord(mergeWordForm)){//om den gissade bokstaven inte finns med i vår nya ordfamilj
                     guesses--; //ta bort en gissning
                 }
                 mergeForms(currentWordForm, mergeWordForm); //slå ihop den nya bokstavsformen med den gamla (tex (a--a) med (-bb-))
