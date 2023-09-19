@@ -55,6 +55,8 @@ unordered_multimap<string, string> makePartitions(const vector<string>& engDicti
                 key.append("-"); //annars lägg till "-"
             }
         } //koppla därefter denna key till detta ord och vi kommer få alla möjliga alternativ i vår multimap
+        //aaab
+        //baaa
         wordFamilies.insert(wordFamilies.begin(), pair<string,string> (key, word)); //källa: https://www.geeksforgeeks.org/unordered_multimap-insert-in-c-stl/
     }
     return wordFamilies;
@@ -149,6 +151,16 @@ bool guessedRight(string wordForm){
     return true;
 }
 
+bool isInteger(string guesses){
+    bool isNumber = true;
+    for (char character : guesses){
+        if (!isdigit(character)){
+            isNumber = false;
+        }
+    }
+    return isNumber;
+}
+
 int main() {
     bool play = true;
     while (play){
@@ -161,21 +173,26 @@ int main() {
         vector<string> usedLetters; //initerar en vektor för använda bokstäver
         while(!validLength){
             cout << "Please choose a valid word length:" << endl;
-            int wordLength;
+            string wordLength;
             cin >> wordLength; //hämtar ordlängd
-            engDictionary = createDictionary(wordLength);
-            if(!engDictionary.empty()){ //om giltig ordlängd
-                validLength = true; //gå ur loopen
-                currentWordForm = createEmptyWordForm(wordLength);
+            if (isInteger(wordLength)){
+                engDictionary = createDictionary(stoi(wordLength));
+                if (!engDictionary.empty()){ //om giltig ordlängd
+                    validLength = true; //gå ur loopen
+                    currentWordForm = createEmptyWordForm(stoi(wordLength));
+                }
             }
         }
         bool validNumber = false;
         while(!validNumber){
+            string answGuesses;
             cout << "Enter number of guesses you want (>0):" << endl;
-            cin >> guesses;
-            //TODO: fråga om datatypskontroll
-            if(guesses > 0){
-              validNumber = true;
+            cin >> answGuesses;
+            if(isInteger(answGuesses)){
+                if (stoi(answGuesses) > 0){
+                    validNumber = true;
+                    guesses = stoi(answGuesses); //kontrollerat nu att input är på korrekt form
+                }
             }
         }
         cout << "Do you want to see the available words after each round? (Y/N):" << endl;
@@ -190,19 +207,21 @@ int main() {
             cout << "Guess an unused letter: " << endl;
             string guessedLetter;
             cin >> guessedLetter;
-            if (!letterIsUsed(usedLetters, guessedLetter)){ //inte gissat denna bokstav förut
-                unordered_multimap<string,string> wordFamilies = makePartitions(engDictionary, guessedLetter);
-                string mergeWordForm = chooseFamily(engDictionary, wordFamilies);
-                if (!guessedLetterInWord(mergeWordForm)){//om den gissade bokstaven inte finns med i vår nya ordfamilj
-                    guesses--; //ta bort en gissning
+            if (ALPHABET.find(guessedLetter) != string::npos && guessedLetter.size() == 1){ //string::npos indikerar att input inte fanns i alfabetet (ingen bokstav)
+                if (!letterIsUsed(usedLetters, guessedLetter)){ //inte gissat denna bokstav förut
+                    unordered_multimap<string,string> wordFamilies = makePartitions(engDictionary, guessedLetter);
+                    string mergeWordForm = chooseFamily(engDictionary, wordFamilies);
+                    if (!guessedLetterInWord(mergeWordForm)){//om den gissade bokstaven inte finns med i vår nya ordfamilj
+                        guesses--; //ta bort en gissning
+                    }
+                    mergeForms(currentWordForm, mergeWordForm); //slå ihop den nya bokstavsformen med den gamla (tex (a--a) med (-bb-))
+                    //om strängen som returnernas = tom, dra bort gissningar
+                    if (guessedRight(currentWordForm)){
+                        showHangman(usedLetters, guesses, showWords, currentWordForm, engDictionary);
+                        guesses = -1; //sätter till en siffra som ej går att få om man förlorar
+                    }
+                    usedLetters.push_back(guessedLetter);
                 }
-                mergeForms(currentWordForm, mergeWordForm); //slå ihop den nya bokstavsformen med den gamla (tex (a--a) med (-bb-))
-                //om strängen som returnernas = tom, dra bort gissningar
-                if (guessedRight(currentWordForm)){
-                    showHangman(usedLetters, guesses, showWords, currentWordForm, engDictionary);
-                    guesses = -1; //sätter till en siffra som ej går att få om man förlorar
-                }
-                usedLetters.push_back(guessedLetter);
             }
         }
         if (guesses == -1){
