@@ -21,13 +21,10 @@ public:
     double distance();
     void insertNearest(Point p);
     void insertSmallest(Point p);
-    template<typename T> struct ListNode {
-    T data;
-            ListNode<T>* next;
-        };
+
 
 private:
-    ListNode <Point>* firstNode = nullptr;
+    Node* firstNode = nullptr;
 };
 
 #endif // TOUR_H

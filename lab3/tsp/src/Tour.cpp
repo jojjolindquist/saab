@@ -12,23 +12,17 @@
 
 Tour::Tour()
 {
-    firstNode; //initierar vår första pekare till null
+   //initierar vår första pekare till null
 }
 
 Tour::Tour(Point a, Point b, Point c, Point d){
-    Node first = Node(a);
-    Node* firstP = &first;
-    Node second = Node(b);
-    Node* secondP = &second;
-    Node third = Node(c);
-    Node* thirdP = &third;
-    Node fourth = Node(d);
-    Node* fourthP = &fourth;
-    first.next = secondP;
-    second.next = thirdP;
-    third.next = fourthP;
-    fourth.next = firstP;
-    this->firstNode = &first; //sätter pekaren till vår första nod till den första nod vi skapade
+    firstNode = new Node(a, nullptr);
+    Node* current = firstNode;
+    current->next = new Node(b, nullptr);
+    current = current->next;
+    current->next = new Node(c, nullptr);
+    current = current->next;
+    current->next = new Node(d, firstNode);
 }
 
 Tour::~Tour()
@@ -57,12 +51,34 @@ void Tour::draw(QGraphicsScene *scene)
 
 int Tour::size()
 {
-    // TODO: write this member
+    int tourSize = 0; // sätter räknare
+    Node* currentNode = firstNode;
+    while (currentNode != nullptr){
+        tourSize++;
+        currentNode = currentNode->next;
+        if (currentNode == firstNode){ // vi har gått ett varv
+            currentNode = nullptr; // sätter till brytvillkoret
+        }
+    }
+    return tourSize;
 }
 
 double Tour::distance()
 {
-    // TODO: write this member
+    double euclideanDistance = 0; // sätter räknare
+    Node* previousNode = firstNode; // första noden
+    Node* currentNode = firstNode->next; // nästa nod
+    while (previousNode != nullptr){
+        Point previousPoint = previousNode->point; // hämtar punkten till första noden
+        Point currentPoint = currentNode->point; // hämtar punkten till nästa nod
+        euclideanDistance += previousPoint.distanceTo(currentPoint); // adderar avståndet till räknaren
+        previousNode = currentNode; // Går till nästa nod
+        currentNode = currentNode->next; // går till nästa nod
+        if (previousNode == firstNode){ // vi har gått ett varv
+            previousNode = nullptr; // sätter till brytvillkoret
+        }
+    }
+    return euclideanDistance;
 }
 
 void Tour::insertNearest(Point p)

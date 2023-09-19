@@ -48,6 +48,8 @@ int main(int argc, char *argv[]) {
     Tour squareTour(p, q, r, s);
             // Output the Tour
     squareTour.show();
+    cout << squareTour.size() << endl;
+    cout << squareTour.distance() << endl;
     // run insertion heuristic
      /* Tour tour;
     double x;
