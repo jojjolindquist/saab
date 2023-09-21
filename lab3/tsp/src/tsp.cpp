@@ -16,9 +16,9 @@
 #include "Tour.h"
 
 int main(int argc, char *argv[]) {
-    /*QApplication a(argc, argv);
+    QApplication a(argc, argv);
 
-    string filename = "tsp10.txt";
+    string filename = "bier127.txt";
     ifstream input;
     input.open(filename);
 
@@ -34,12 +34,12 @@ int main(int argc, char *argv[]) {
     view->setScene(scene);
     view->scale(1, -1); //screen y-axis is inverted
     view->setSceneRect(0, 0, width, height);
-    view->show(); */
+    view->show();
 
     //TEST
 
     // define 4 points forming a square
-    Point p(100.0, 100.0);
+    /*Point p(100.0, 100.0);
     Point q(500.0, 100.0);
     Point r(500.0, 500.0);
     Point s(100.0, 500.0);
@@ -50,18 +50,20 @@ int main(int argc, char *argv[]) {
     squareTour.show();
     cout << squareTour.size() << endl;
     cout << squareTour.distance() << endl;
+    squareTour.draw(scene);*/
+
     // run insertion heuristic
-     /* Tour tour;
+    Tour tour;
     double x;
     double y;
     while (input >> x >> y) {
         Point p(x, y);
-        tour.insertNearest(p);
+        tour.insertSmallest(p);
         //uncomment the 4 lines below to animate
-        //tour.draw(scene);
-        //std::chrono::milliseconds dura(50);
-        //std::this_thread::sleep_for(dura);
-        //a.processEvents();
+        tour.draw(scene);
+        std::chrono::milliseconds dura(50);
+        std::this_thread::sleep_for(dura);
+        a.processEvents();
     }
     input.close();
 
@@ -72,7 +74,8 @@ int main(int argc, char *argv[]) {
     tour.show();
 
     // draw tour
-    tour.draw(scene); */
+    tour.draw(scene);
     //return a.exec(); // start Qt event loop
     return 0;
 }
+
