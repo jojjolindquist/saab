@@ -1,6 +1,6 @@
 /* En variant av spelet hänga gubbe, då datorn spelar fult. Den väljer utifrån den gissade bokstaven
- * den ordfamilj (där alla ord har den bokstaven på samma position) med flest värden (ord), varav
- * det blir svårare för spelaren att gissa rätt. */
+* den ordfamilj (där alla ord har den bokstaven på samma position) med flest värden (ord), varav
+* det blir svårare för spelaren att gissa rätt. */
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -10,7 +10,7 @@
 #include <unordered_map>
 using namespace std;
 
-const string ALPHABET  = "abcdefghijklmnopqrstuvwxyz";
+const string ALPHABET  = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 /* Skapar en engelsk ordbok (dictionary) i form av en vektor av strängar av given (ord)längd.*/
 vector<string> createDictionary(const int& wordLength){
@@ -29,8 +29,9 @@ vector<string> createDictionary(const int& wordLength){
     return engDictionary;
 }
 
+
 /*Tar in en vektor av använda/gissade bokstäver (strängar) samt en bokstav (sträng)
- * och kontrollerar om bokstaven finns i vektorn. Returnernar en bool. */
+* och kontrollerar om bokstaven finns i vektorn. Returnernar en bool. */
 bool letterIsUsed(const vector<string>& usedLetters, const string& letter){
     for (int i = 0; i < usedLetters.size(); i++){
         if (usedLetters[i] == letter){
@@ -41,8 +42,8 @@ bool letterIsUsed(const vector<string>& usedLetters, const string& letter){
 }
 
 /* Tar in en dictionary (vektor) och en bokstav (sträng) och returnerar en unordered multimap där varje
- * key är en sträng där bokstaven antingen finns eller inte finns på varje position.
- * Värdena till varje key är de ord där bokstaven finns på dessa positioner.*/
+* key är en sträng där bokstaven antingen finns eller inte finns på varje position.
+* Värdena till varje key är de ord där bokstaven finns på dessa positioner.*/
 unordered_multimap<string, string> makePartitions(const vector<string>& engDictionary, const string& letter){
     unordered_multimap<string, string> wordFamilies;
     for (string word : engDictionary){
@@ -62,6 +63,7 @@ unordered_multimap<string, string> makePartitions(const vector<string>& engDicti
     return wordFamilies;
 }
 
+
 /* Tar in en ordlängd (int) och returnerar en sträng lika många "-" som ordlängden.*/
 string createEmptyWordForm(const int& wordLength){
     string emptyWordForm = "";
@@ -71,8 +73,9 @@ string createEmptyWordForm(const int& wordLength){
     return emptyWordForm;
 }
 
+
 /* Tar in två olika ordformer (tex (a--a) och (-bb-)) som garanterat har samma längd.
- * Slår sedan ihop dessa ordformer till en (tex (abba)). */
+* Slår sedan ihop dessa ordformer till en (tex (abba)). */
 void mergeForms(string& currentWordForm, const string& mergeWordForm){
     for (int i = 0; i < currentWordForm.length(); i++){
         if(string(1,mergeWordForm[i]) != "-"){ //om symbolen på index i har någon bokstav
@@ -81,10 +84,11 @@ void mergeForms(string& currentWordForm, const string& mergeWordForm){
     }
 }
 
+
 /* Tar in en ordlista (vektor) och en multimap vars nyckel är ett mönster och värden alla ord med det bokstavsmönstret.
- * Jämför sedan familjernas storlek (antal värden) och sparar undan den nyckel störst familj varje omgång. Metoden gör
- * sedan om den största familjen till en vektor av strängar (värdena), samt tilldelar engDictionary den.
- * Metoden returnerar mönstret (nyckeln) för den största familjen.*/
+* Jämför sedan familjernas storlek (antal värden) och sparar undan den nyckel störst familj varje omgång. Metoden gör
+* sedan om den största familjen till en vektor av strängar (värdena), samt tilldelar engDictionary den.
+* Metoden returnerar mönstret (nyckeln) för den största familjen.*/
 string chooseFamily(vector<string>& engDictionary, const unordered_multimap<string, string>& wordFamilies){
     pair<int, string> biggestFamily;//lagrar information om största familj på form (antal ord, nyckel i multimap)
     biggestFamily.first = -1; //ingen annan kommer ha -1 som antal ord, initierar.
@@ -111,8 +115,9 @@ string chooseFamily(vector<string>& engDictionary, const unordered_multimap<stri
     return biggestFamily.second;
 }
 
+
 /*En metod för att visa allt det grafiska med spelet. Visar gissade ord, antal gissningar kvar, ordlistan om det är valt,
- * samt bokstäverna som gissats rätt i ordet. */
+* samt bokstäverna som gissats rätt i ordet. */
 void showHangman(const vector<string>& usedLetters, int& guesses, const bool& showWords, const string& currentWordForm, const vector<string>& dictionary){
     string showUsedLetters;
     for (string letter : usedLetters){ //skapa en läslig sträng av alla bokstäver
@@ -129,8 +134,9 @@ void showHangman(const vector<string>& usedLetters, int& guesses, const bool& sh
     cout << "Word: " + currentWordForm << endl;
 }
 
+
 /* Tar in ett ordmönster och returnerar false om alla chars är "-" (dvs den gissade bokstaven finns inte
- * i ordfamiljen). Annars returneras true. */
+* i ordfamiljen). Annars returneras true. */
 bool guessedLetterInWord(string wordForm){
     for(char letter : wordForm){
         if (string(1, letter) != "-"){
@@ -140,8 +146,9 @@ bool guessedLetterInWord(string wordForm){
     return false;
 }
 
+
 /* Tar in ett ordmönster, och om varje char är en bokstav (dvs inte "-"), returnerar true
- * (dvs användaren har gissat rätt). Annars returneras false. */
+* (dvs användaren har gissat rätt). Annars returneras false. */
 bool guessedRight(string wordForm){
     for(char letter : wordForm){
         if (string(1, letter) == "-"){
@@ -150,6 +157,7 @@ bool guessedRight(string wordForm){
     }
     return true;
 }
+
 
 bool isInteger(string guesses){
     bool isNumber = true;
@@ -160,6 +168,42 @@ bool isInteger(string guesses){
     }
     return isNumber;
 }
+
+
+string chooseDifficultFamily(vector<string>& engDictionary, const unordered_multimap<string, string>& wordFamilies, string letter){
+    //ska nu välja den familj där bokstaven finns minst antal gånger.
+    pair<int, string> difficultFamily;//lagrar information om största familj på form (antal ord, nyckel i multimap)
+    difficultFamily.first = 2147483647; //ingen annan kommer ha större än detta, maxvärde int
+    difficultFamily.second = "";
+    auto familiesIt = wordFamilies.begin();
+    while(familiesIt != wordFamilies.end()){
+        string key = familiesIt->first; //first innebär hämta nyckeln (k) i nyckel-värde-paret (k,v)
+        int numOfLetter = 0;
+
+        for (char symbol : key){ //går igenom varje symbol i nyckeln
+            if (string(1, symbol) != "-"){ //om inte "-" så är det en bokstav
+                numOfLetter++;
+            }
+        }
+        int members = wordFamilies.count(key); //räknar antalet ord (medlemmar) i varje familj
+        if (numOfLetter < difficultFamily.first){ //hittat en familj med färre antal av bokstaven?
+            difficultFamily.first = numOfLetter;
+            difficultFamily.second = key;
+        }
+       advance(familiesIt, members); //ökar iteratorn med antal värden i key, så vi inte itererar genom alla par (onödigt)
+                                    //källa: https://stackoverflow.com/questions/1057529/how-to-increment-an-iterator-by-2
+    }
+       vector<string> newDictionary;
+       auto familyIt = wordFamilies.find(difficultFamily.second);//returnerar iterator som börjar vid orden med firstLetter
+       for(int i = 0; i < difficultFamily.first; i++){
+           string word = familyIt->second; //second innebär hämta värdet (v) i nyckel-värde-paret (k,v)
+           newDictionary.push_back(word);
+           familyIt++;
+       }
+       engDictionary = newDictionary; //sätter vår dictionary till den nya ordfamiljen
+       return difficultFamily.second; //returnerar ordformen
+}
+
 
 int main() {
     bool play = true;
@@ -210,7 +254,16 @@ int main() {
             if (ALPHABET.find(guessedLetter) != string::npos && guessedLetter.size() == 1){ //string::npos indikerar att input inte fanns i alfabetet (ingen bokstav)
                 if (!letterIsUsed(usedLetters, guessedLetter)){ //inte gissat denna bokstav förut
                     unordered_multimap<string,string> wordFamilies = makePartitions(engDictionary, guessedLetter);
-                    string mergeWordForm = chooseFamily(engDictionary, wordFamilies);
+                    string mergeWordForm;
+                    if (guesses == 2){ //om gissningar 2 (ska bli 1) ska vi välja en svårare familj till sista gissningen
+                        string keyDiffFamily = chooseDifficultFamily(engDictionary, wordFamilies, guessedLetter);
+                        if (!guessedLetterInWord(keyDiffFamily)){ //nu vet vi 1 gissning kvar
+                            mergeWordForm = keyDiffFamily; //sätt mergeWordForm till svåraste familjen
+                        }
+                    }
+                    else{
+                        mergeWordForm = chooseFamily(engDictionary, wordFamilies);
+                    }
                     if (!guessedLetterInWord(mergeWordForm)){//om den gissade bokstaven inte finns med i vår nya ordfamilj
                         guesses--; //ta bort en gissning
                     }

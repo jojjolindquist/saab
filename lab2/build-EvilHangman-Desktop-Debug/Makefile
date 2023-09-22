@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = EvilHangman1.0.0
-DISTDIR = /home/johli622/tddd86-ht23/lab2/build-EvilHangman-Desktop-Debug/.tmp/EvilHangman1.0.0
+DISTDIR = /home/stias606/Documents/TDDD86/tddd86-ht23/lab2/build-EvilHangman-Desktop-Debug/.tmp/EvilHangman1.0.0
 LINK          = g++
 LFLAGS        = 
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
@@ -170,8 +170,8 @@ first: all
 
 EvilHangman:  $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
-	cp -r "/home/johli622/tddd86-ht23/lab2/evilhangman/res/di.txt" "/home/johli622/tddd86-ht23/lab2/build-EvilHangman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/lab2/evilhangman/res/dictionary.txt" "/home/johli622/tddd86-ht23/lab2/build-EvilHangman-Desktop-Debug" 
+	cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab2/evilhangman/res/di.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab2/build-EvilHangman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab2/evilhangman/res/dictionary.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab2/build-EvilHangman-Desktop-Debug" 
 	
 
 Makefile: ../evilhangman/EvilHangman.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
