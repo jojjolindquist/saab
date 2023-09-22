@@ -16,21 +16,25 @@ Tour::Tour()
 }
 
 Tour::Tour(Point a, Point b, Point c, Point d){
-    firstNode = new Node(a, nullptr);
-    Node* current = firstNode;
-    current->next = new Node(b, nullptr);
+    firstNode = new Node(a, nullptr); // skapar första nod
+    Node* current = firstNode; // current pekar på förstanod
+    current->next = new Node(b, nullptr); // första nod pekar på andra
     current = current->next;
-    current->next = new Node(c, nullptr);
+    current->next = new Node(c, nullptr); // andra nod pekar på tredje
     current = current->next;
-    current->next = new Node(d, firstNode);
+    current->next = new Node(d, firstNode); // fjärde noden pekar på första
 }
 
 Tour::~Tour()
 {
-    while(firstNode != nullptr){
-        Node* temp = firstNode;
-        firstNode = firstNode->next;
+    Node* current = firstNode;
+    while(current != nullptr){
+        Node* temp = current;
+        current = current->next;
         delete temp;
+        if (current == firstNode){
+            current = nullptr;
+        }
     }
 }
 
@@ -38,7 +42,7 @@ void Tour::show()
 {
     Node* currentNode = this->firstNode;
     while (currentNode != nullptr) {
-        string pointOutput = currentNode->point.toString();
+        string pointOutput = currentNode->point.toString(); // utskrift för punkt
         cout << pointOutput << endl;
         currentNode = currentNode->next; // hoppar till nästa nod
         if (currentNode == firstNode){
@@ -51,8 +55,8 @@ void Tour::draw(QGraphicsScene *scene)
 {
     Node* currentNode = firstNode;
     while (currentNode != nullptr) {
-        Point pointToDraw = currentNode->point;
-        pointToDraw.drawTo(currentNode->next->point, scene);
+        Point pointToDraw = currentNode->point; // hämtar ut den punk det ska ritas ett sträck ifrån
+        pointToDraw.drawTo(currentNode->next->point, scene); // kallar på draw metoden
         currentNode = currentNode->next; // hoppar till nästa nod
         if (currentNode == firstNode){
             currentNode = nullptr; //sätter till brytvillkoret
@@ -65,8 +69,8 @@ int Tour::size()
     int tourSize = 0; // sätter räknare
     Node* currentNode = firstNode;
     while (currentNode != nullptr){
-        tourSize++;
-        currentNode = currentNode->next;
+        tourSize++; // ökar storleken med ett
+        currentNode = currentNode->next; // går till nästa nod
         if (currentNode == firstNode){ // vi har gått ett varv
             currentNode = nullptr; // sätter till brytvillkoret
         }
@@ -94,16 +98,16 @@ double Tour::distance()
 
 void Tour::insertNearest(Point p)
 {
-    double smallestDistance = 1.7976931348623157E+308;
-    Node* nearestNode = nullptr;
-    Node* currentNode = firstNode;
-    if (currentNode == nullptr){
+    double smallestDistance = 1.7976931348623157E+308; // sätter största vä'rdet för double
+    Node* nearestNode = nullptr; // sparar undan noden som är närmast p
+    Node* currentNode = firstNode; // pekar på noden vi för tillfället kollar på
+    if (currentNode == nullptr){ // om tour är tom, sätt p som firstnode
         firstNode = new Node(p,  nullptr);
         firstNode->next = firstNode;
     }else{
         while (currentNode != nullptr) {
-            double distance = p.distanceTo(currentNode->point);
-            if (distance < smallestDistance){
+            double distance = p.distanceTo(currentNode->point); // räknar ut avståndet mellan punkterna
+            if (distance < smallestDistance){ // om vi har ny nod som är närmare punkten
                 smallestDistance = distance;
                 nearestNode = currentNode;
             }
@@ -112,7 +116,7 @@ void Tour::insertNearest(Point p)
                 currentNode = nullptr; //sätter till brytvillkoret
             }
         }
-        Node* nextNode = nearestNode->next;
+        Node* nextNode = nearestNode->next; // stopppar in noden p i tour vid den nod som är närmast p
         nearestNode->next = new Node(p, nextNode);
     }
 }
@@ -124,19 +128,20 @@ void Tour::insertSmallest(Point p)
     Node* currentNode = firstNode; // håller koll på nuvarande noden när vi itererar
     Node* pNode = new Node(p, nullptr); // skapar nod för punkten p
     if (currentNode == nullptr){ // det är en tom tour
-        firstNode = new Node(p,  nullptr); //första noden är punkten som ska sättas in
+        firstNode = pNode; //första noden är punkten som ska sättas in
         firstNode->next = firstNode; // den pekar på sig själv
     }else{
         while (currentNode != nullptr) {
-            Node* nextNode = currentNode->next; // pekar på noden som kommer efter currentnode
-            pNode->next = nextNode; // sätter att P pekar på det som currentnode pekade på
-            currentNode->next = pNode; // currentnode pekar på p
-            double currentDistance = this->distance(); // räknar ut sträckan på tour
-            if (smallestDistance > currentDistance){ // om vi hittat ny kortast sträcka
-               smallestDistance = currentDistance; // ny kortast sträcka
+            Point nextpoint = currentNode->next->point; // punkten efter currrentPoint
+            double currentDistance = currentNode->point.distanceTo(nextpoint); // nuvarande distans mellan punkterna
+            double newdistance = currentNode->point.distanceTo(pNode->point) +
+                    pNode->point.distanceTo(nextpoint); // distans när vi lägger till punkt p
+
+            double distanceDifference = newdistance - currentDistance; // räknar ut distansskillnaden
+            if (smallestDistance > distanceDifference){ // om vi hittat ny kortast sträcka
+               smallestDistance = distanceDifference; // ny kortast sträcka
                nearestNode = currentNode; // sparar var insättning av noden gav kortast sträcka
             }
-            currentNode->next = nextNode; // ändrar tillbaka som det var
             currentNode = currentNode->next; // hoppar till nästa nod
             if (currentNode == firstNode){
                 currentNode = nullptr; //sätter till brytvillkoret

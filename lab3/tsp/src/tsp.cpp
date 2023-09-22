@@ -18,7 +18,7 @@
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
-    string filename = "bier127.txt";
+    string filename = "tsp5.txt";
     ifstream input;
     input.open(filename);
 
@@ -60,10 +60,10 @@ int main(int argc, char *argv[]) {
         Point p(x, y);
         tour.insertSmallest(p);
         //uncomment the 4 lines below to animate
-        tour.draw(scene);
-        std::chrono::milliseconds dura(50);
-        std::this_thread::sleep_for(dura);
-        a.processEvents();
+        //tour.draw(scene);
+        //std::chrono::milliseconds dura(50);
+        //std::this_thread::sleep_for(dura);
+        //a.processEvents();
     }
     input.close();
 
@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
     cout << "Tour distance: " << std::fixed << std::setprecision(4)
          << std::showpoint << tour.distance() << endl;
     cout << "Number of points: " << tour.size() << endl;
-    tour.show();
+   // tour.show();
 
     // draw tour
     tour.draw(scene);
