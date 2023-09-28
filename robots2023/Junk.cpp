@@ -14,18 +14,3 @@ void Junk::draw(QGraphicsScene *scene) const {
     scene->addEllipse(QRectF(corner.x * UNIT_WIDTH, corner.y * UNIT_HEIGHT,
                              JUNK_RADIUS, JUNK_RADIUS), QPen(), QBrush(JUNK_COLOR));
 }
-void Junk::doCrash() {
-
-}
-
-void Junk::moveTowards(const Unit &){
-
-}
-
-bool Junk::canMove() const{
-    return false;
-}
-
-bool Junk::justCrashed() const{
-    return false;
-}

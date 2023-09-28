@@ -34,21 +34,15 @@ public:
     Point asPoint() const;
 
     /*
-     * Kopieringskonstruktor
-     */
-     virtual Unit* clone() const = 0;
-
-    /*
     * Am I in the same square as u?
     */
     bool at(const Unit& u) const;
 
-    //virtual Unit& operator=(const Unit&) = delete;
 
     /*
-    * Take one step closer to u
+    * Take one step closer to point
     */
-    virtual void moveTowards(const Unit&);
+    virtual void moveTowards(const Point&);
 
     /*
     * Draws this unit onto the given QGraphicsScene.

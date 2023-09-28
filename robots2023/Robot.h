@@ -10,22 +10,14 @@
 #include <QGraphicsScene>
 
 class Robot : public Unit {
-    bool crashed = false;
+    bool toBeJunked = false;
 
 public:
-
-    /* Konstruktor */
-    Robot();
 
     /*
      * did not crash yet
      */
-    virtual bool canMove() const;
-
-    /*
-    * Create Robot at given point
-    */
-    Robot(const Point& p): Unit(p){}
+    virtual bool isAlive() const;
 
     /*
      * Crashes and remembers it
@@ -35,13 +27,15 @@ public:
     /*
      * Return whether the robot crashed
      */
-    virtual bool justCrashed() const;
+    virtual bool isToBeJunked() const;
 
-    Robot* clone() const override{ return new Robot{*this};};
 
-    /* Draws this robot onto the given QGraphicsScene.
+    /*
+    * Draws this robot onto the given QGraphicsScene.
     */
     void draw(QGraphicsScene* scene) const override;
+
+
 };
 
 #endif // ROBOT_H

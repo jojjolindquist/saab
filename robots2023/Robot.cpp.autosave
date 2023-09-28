@@ -6,21 +6,16 @@
 #include "Robot.h"
 #include "constants.h"
 
-Robot::Robot(){
-    teleport();
-}
-
-
-bool Robot::canMove() const{
-    return !crashed;
+bool Robot::isAlive() const{
+    return !toBeJunked;
 }
 
 void Robot::doCrash(){
-    crashed = true;
+    toBeJunked = true;
 }
 
-bool Robot::justCrashed() const{
-    return crashed;
+bool Robot::isToBeJunked() const{
+    return toBeJunked;
 
 }
 

@@ -27,6 +27,7 @@ public:
 
     ~GameState() = default;
 
+
     /*
      * Clear and redraw entire playing field
      */
@@ -50,7 +51,7 @@ public:
     /*
      * Count identified crashed robots
      */
-    int countJustCrashed()const;
+    int countToBeJunked()const;
 
     /*
      * Replace each identified crashed robot with a junk
@@ -60,7 +61,7 @@ public:
     /*
      * Are there still robots that did not crash?
      */
-    bool stillLiveRobots() const;
+    bool someRobotsAlive() const;
 
     /*
      * Is hero in same place as robot or junk?
@@ -78,13 +79,12 @@ public:
     Point getHeroAsPoint () const;
 
 private:
-    std::vector<Robot*> robots;  // the robots
-   // std::vector<Junk> junks;    // robots that have turned to junk
+    std::vector<Robot> robots;  // the robots
+    std::vector<Junk> junks;    // robots that have turned to junk
     Hero hero;                  // the hero
 
     // private helpers
     bool isEmpty(const Unit& unit) const;
-
 
 };
 

@@ -16,7 +16,7 @@ public:
     /*
     * Draws this hero onto the given QGraphicsScene.
     */
-    void draw(QGraphicsScene *scene) const override;
+    void draw(QGraphicsScene *scene) const;
 
 };
 

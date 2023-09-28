@@ -10,16 +10,13 @@
 #include "Robot.h"
 #include <QGraphicsScene>
 
-class Junk : public Robot {
+class Junk : public Robot  {
 public:
     Junk(const Point& p): Robot(p){}
-
     /*
     * Draws this junk onto the given QGraphicsScene.
     */
     void draw(QGraphicsScene* scene) const override;
-
-    Junk* clone() const override{ return new Junk{*this};};
 
     /*
     * Take one step closer to u
