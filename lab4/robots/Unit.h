@@ -2,6 +2,10 @@
  * Copyright (C) David Wolfe, 1999.  All rights reserved.
  * Ported to Qt and adapted for TDDD86, 2015.
  * Updated for TDDD86, 2021.
+ *
+ * (OBS: våra kommentarer är på svenska. De engelska var med från början)
+ * Unit, en klass för alla spelobjekt och deras metoder. Varje Unit har en
+ * x- och y-koordinat.
  */
 
 #ifndef UNIT_H
@@ -34,21 +38,34 @@ public:
     Point asPoint() const;
 
     /*
-     * Kopieringskonstruktor
-     */
-     virtual Unit* clone() const = 0;
-
-    /*
     * Am I in the same square as u?
     */
     bool at(const Unit& u) const;
 
-    //virtual Unit& operator=(const Unit&) = delete;
+    /*
+     * did not crash yet
+     */
+    virtual bool isAlive() const;
+    
+    /*
+     * Kopieringskonstruktor
+     */
+    virtual Unit* clone() const = 0;
 
     /*
-    * Take one step closer to u
+     * Crashes and remembers it
+     */
+    virtual void doCrash();
+
+    /*
+    * Take one step closer to point
     */
-    virtual void moveTowards(const Unit&);
+    virtual void moveTowards(const Point&);
+
+    /*
+     * Return whether the unit crashed
+     */
+    virtual bool isToBeJunked() const;
 
     /*
     * Draws this unit onto the given QGraphicsScene.

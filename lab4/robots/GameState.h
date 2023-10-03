@@ -3,6 +3,8 @@
  * Ported to Qt and adapted for TDDD86, 2015.
  *
  * Maintains the game state:  Location of all robots, junk and hero.
+ * Har ett Hero-objekt och en vektor med pekare till Units för
+ * varje spelobjekt på skärmen.
  */
 
 #ifndef GAMESTATE_H
@@ -25,12 +27,25 @@ public:
      */
     GameState(int numberOfRobots);
 
-    ~GameState() = default;
+    /*Kopieringskonstruktor*/
+    GameState(const GameState &state);
+
+    ~GameState(); //= default;
+
+    /*
+     * copy assignment
+     */
+    GameState& operator= (const GameState& other);
+
+    /*
+     * Kopierar ett GameState med deepcopy
+     */
+    void copyOther(const GameState& state);
 
     /*
      * Clear and redraw entire playing field
      */
-    void draw(QGraphicsScene* scene) const;	// Clear and redraw entire playing field
+    void draw(QGraphicsScene* scene) const;
 
     /*
      * Teleport hero to random location
@@ -50,7 +65,7 @@ public:
     /*
      * Count identified crashed robots
      */
-    int countJustCrashed()const;
+    int countToBeJunked()const;
 
     /*
      * Replace each identified crashed robot with a junk
@@ -60,7 +75,7 @@ public:
     /*
      * Are there still robots that did not crash?
      */
-    bool stillLiveRobots() const;
+    bool someRobotsAlive() const;
 
     /*
      * Is hero in same place as robot or junk?
@@ -78,13 +93,11 @@ public:
     Point getHeroAsPoint () const;
 
 private:
-    std::vector<Robot*> robots;  // the robots
-   // std::vector<Junk> junks;    // robots that have turned to junk
+    std::vector<Unit*> units; //robots och junks
     Hero hero;                  // the hero
 
     // private helpers
     bool isEmpty(const Unit& unit) const;
-
 
 };
 

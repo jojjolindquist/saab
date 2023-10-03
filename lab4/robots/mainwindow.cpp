@@ -151,7 +151,7 @@ bool MainWindow::tryMoveHeroTowards(const Point& point) {
 void MainWindow::processMove(bool waiting) {
     gameState.moveRobots();
     gameState.updateCrashes();
-    score += gameState.countJustCrashed() * (POINTS_PER_ROBOT +
+    score += gameState.countToBeJunked() * (POINTS_PER_ROBOT +
                                             (waiting ? WAIT_BONUS : 0));
     gameState.junkTheCrashed();
     gameState.draw(scene);
@@ -160,7 +160,7 @@ void MainWindow::processMove(bool waiting) {
     if (gameState.heroDead()) { // game over
         gameOver = true;
         gameOverWindow.show();
-    }else if(!gameState.stillLiveRobots()) { // won level
+    }else if(!gameState.someRobotsAlive()) { // won level
         numberOfRobots = std::min(MAX_ROBOTS, numberOfRobots + ROBOTS_INC);
         gameState = GameState(numberOfRobots);
         gameState.draw(scene);

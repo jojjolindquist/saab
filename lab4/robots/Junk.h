@@ -1,45 +1,55 @@
 /**
  * Copyright (C) David Wolfe, 1999.  All rights reserved.
  * Ported to Qt and adapted for TDDD86, 2015.
+ *
+ * Junk, en subklass till Unit som är kraschade robotar. De är
+ * orörliga och döda, samt överskrider Units metoder.
  */
 
 #ifndef JUNK_H
 #define JUNK_H
 
 #include "Unit.h"
-#include "Robot.h"
 #include <QGraphicsScene>
 
-class Junk : public Robot {
+class Junk : public Unit  {
 public:
-    Junk(const Point& p): Robot(p){}
+
+    /*
+     * Konstruktor
+     */
+    Junk(const Point& p): Unit(p){}
 
     /*
     * Draws this junk onto the given QGraphicsScene.
     */
     void draw(QGraphicsScene* scene) const override;
 
-    Junk* clone() const override{ return new Junk{*this};};
-
-    /*
-    * Take one step closer to u
-    */
-    void moveTowards(const Unit&) override;
-
     /*
      * did not crash yet
      */
-    bool canMove() const override;
+    bool isAlive() const override;
 
     /*
      * Crashes and remembers it
      */
     void doCrash() override;
+    
+    /*
+     * Kopieringskonstruktor
+     */
+     Junk* clone() const override;
 
     /*
-     * Return whether the robot crashed
+    * Take one step closer to point
+    */
+    void moveTowards(const Point&) override;
+
+    /*
+     * Return whether the junk crashed
      */
-    bool justCrashed() const override;
+    bool isToBeJunked() const override;
+
 };
 
 #endif // JUNK_H

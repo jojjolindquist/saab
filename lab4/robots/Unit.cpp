@@ -27,13 +27,24 @@ bool Unit::at(const Unit& u) const {
     return (x == u.x && y == u.y);
 }
 
+bool Unit::isAlive() const {
+    return false;
+}
+
+void Unit::doCrash(){
+
+}
+
+bool Unit::isToBeJunked() const {
+    return false;
+}
 
 
-void Unit::moveTowards(const Unit& u) {
-    if (x > u.x) x--;
-    if (x < u.x) x++;
-    if (y > u.y) y--;
-    if (y < u.y) y++;
+void Unit::moveTowards(const Point& p) {
+    if (x > p.x) x--;
+    if (x < p.x) x++;
+    if (y > p.y) y--;
+    if (y < p.y) y++;
     checkBounds();
 }
 
@@ -58,6 +69,6 @@ void Unit::checkBounds() {
     if (y > MAX_Y) y = MAX_Y;
 }
 
-void Unit::draw(QGraphicsScene *scene) const{
+void Unit::draw(QGraphicsScene *scene) const{ //åtkomstmetod
 
 }

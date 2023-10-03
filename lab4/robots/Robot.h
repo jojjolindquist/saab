@@ -1,6 +1,11 @@
 /**
  * Copyright (C) David Wolfe, 1999.  All rights reserved.
  * Ported to Qt and adapted for TDDD86, 2015.
+ *
+ * Robot, en subklass till Unit som består av flera metoder som
+ * överskriver Units, så att de beter sig som en robot (levande och rörliga).
+ * Robotar är spelarens (Hero's) motståndare. Robotar blir till Junk
+ * vid kollision med Junk eller andra robotar.
  */
 
 #ifndef ROBOT_H
@@ -10,38 +15,37 @@
 #include <QGraphicsScene>
 
 class Robot : public Unit {
-    bool crashed = false;
+    bool toBeJunked = false;
 
 public:
-
-    /* Konstruktor */
-    Robot();
 
     /*
      * did not crash yet
      */
-    virtual bool canMove() const;
-
+    bool isAlive() const override;
+    
     /*
-    * Create Robot at given point
-    */
-    Robot(const Point& p): Unit(p){}
+     * Kopieringskonstruktor
+     */
+    Robot* clone() const override;
 
     /*
      * Crashes and remembers it
      */
-    virtual void doCrash();
+    void doCrash() override;
 
     /*
      * Return whether the robot crashed
      */
-    virtual bool justCrashed() const;
+    bool isToBeJunked() const override;
 
-    Robot* clone() const override{ return new Robot{*this};};
 
-    /* Draws this robot onto the given QGraphicsScene.
+    /*
+    * Draws this robot onto the given QGraphicsScene.
     */
     void draw(QGraphicsScene* scene) const override;
+
+
 };
 
 #endif // ROBOT_H
