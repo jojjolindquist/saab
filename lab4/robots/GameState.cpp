@@ -28,6 +28,35 @@ GameState::~GameState(){
     }
 }
 
+GameState::GameState(GameState&& other){
+    hero = other.hero; //flyttar pekarna till andra objektet
+    units = other.units;
+    std::vector<Unit*> otherNewVector;
+    otherNewVector.push_back(nullptr); //innehåller giltigt tomt värde
+    other.units = otherNewVector;
+    Hero* otherNewHero = new Hero();
+    other.hero = *otherNewHero;
+    delete otherNewHero; //frigör nya pekarens minnesutrymme
+}
+
+GameState& GameState:: operator=(GameState&& other){ //hoppar in hit när Hero dör
+    if (this != &other){
+        for (auto unit: units){
+            delete unit;
+        }
+    }
+    hero = other.hero; //flyttar pekarna till andra objektet
+    units = other.units;
+    std::vector<Unit*> otherNewVector;
+    otherNewVector.push_back(nullptr); //innehåller giltigt tomt värde
+    other.units = otherNewVector;
+    Hero* otherNewHero = new Hero();
+    other.hero = *otherNewHero;
+    delete otherNewHero; //frigör nya pekarens minnesutrymme
+
+    return *this;
+}
+
 GameState::GameState(const GameState& state){
     copyOther(state);
 }

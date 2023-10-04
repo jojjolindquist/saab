@@ -27,17 +27,6 @@ bool Unit::at(const Unit& u) const {
     return (x == u.x && y == u.y);
 }
 
-bool Unit::isAlive() const {
-    return false;
-}
-
-void Unit::doCrash(){
-
-}
-
-bool Unit::isToBeJunked() const {
-    return false;
-}
 
 
 void Unit::moveTowards(const Point& p) {
@@ -69,6 +58,3 @@ void Unit::checkBounds() {
     if (y > MAX_Y) y = MAX_Y;
 }
 
-void Unit::draw(QGraphicsScene *scene) const{ //åtkomstmetod
-
-}

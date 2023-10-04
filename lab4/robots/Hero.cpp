@@ -17,3 +17,15 @@ void Hero::draw(QGraphicsScene *scene) const {
 Hero* Hero::clone() const{
     return new Hero{ *this }; //enligt föreläsningen
 }
+
+bool Hero::isAlive() const{
+    return false;
+}
+
+void Hero::doCrash(){
+
+}
+
+bool Hero::isToBeJunked() const{
+    return false;
+}

@@ -22,9 +22,25 @@ public:
     Hero* clone() const override;
 
     /*
-    * Draws this hero onto the given QGraphicsScene.
+     * did not crash yet
+     */
+    bool isAlive() const override;
+
+    /*
+     * Crashes and remembers it
+     */
+    void doCrash() override;
+
+    /*
+     * Return whether the unit crashed
+     */
+    bool isToBeJunked() const override;
+
+    /*
+    * Draws this unit onto the given QGraphicsScene.
     */
-    void draw(QGraphicsScene *scene) const override;
+    void draw(QGraphicsScene* scene) const override;
+
 
 };
 

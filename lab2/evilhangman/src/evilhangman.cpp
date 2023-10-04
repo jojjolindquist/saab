@@ -17,7 +17,7 @@ vector<string> createDictionary(const int& wordLength){
     //unordered_multimap<string,string> engDictionary;
     vector<string> engDictionary;
     ifstream words;
-    string filename ="dictionary.txt";
+    string filename ="test.txt";
     words.open(filename.c_str());
     string word;
     while (getline(words, word)) {
@@ -195,7 +195,7 @@ string chooseDifficultFamily(vector<string>& engDictionary, const unordered_mult
     }
        vector<string> newDictionary;
        auto familyIt = wordFamilies.find(difficultFamily.second);//returnerar iterator som börjar vid orden med firstLetter
-       for(int i = 0; i < difficultFamily.first; i++){
+       for(int i = 0; i < wordFamilies.count(difficultFamily.second); i++){ //itererar genom alla ord i den nya familjen
            string word = familyIt->second; //second innebär hämta värdet (v) i nyckel-värde-paret (k,v)
            newDictionary.push_back(word);
            familyIt++;
@@ -255,11 +255,9 @@ int main() {
                 if (!letterIsUsed(usedLetters, guessedLetter)){ //inte gissat denna bokstav förut
                     unordered_multimap<string,string> wordFamilies = makePartitions(engDictionary, guessedLetter);
                     string mergeWordForm;
-                    if (guesses == 2){ //om gissningar 2 (ska bli 1) ska vi välja en svårare familj till sista gissningen
+                    if (guesses == 1){ //om gissningar 1 ska vi välja en svårare familj till sista gissningen
                         string keyDiffFamily = chooseDifficultFamily(engDictionary, wordFamilies, guessedLetter);
-                        if (!guessedLetterInWord(keyDiffFamily)){ //nu vet vi 1 gissning kvar
                             mergeWordForm = keyDiffFamily; //sätt mergeWordForm till svåraste familjen
-                        }
                     }
                     else{
                         mergeWordForm = chooseFamily(engDictionary, wordFamilies);

@@ -33,6 +33,16 @@ public:
     ~GameState(); //= default;
 
     /*
+     * Move constructor
+     */
+    GameState(GameState&& other);
+
+    /*
+     * Move assignment operator
+     */
+    GameState& operator=(GameState&& other);
+
+    /*
      * copy assignment
      */
     GameState& operator= (const GameState& other);

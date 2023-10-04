@@ -45,7 +45,7 @@ public:
     /*
      * did not crash yet
      */
-    virtual bool isAlive() const;
+    virtual bool isAlive() const = 0;
     
     /*
      * Kopieringskonstruktor
@@ -55,7 +55,7 @@ public:
     /*
      * Crashes and remembers it
      */
-    virtual void doCrash();
+    virtual void doCrash() = 0;
 
     /*
     * Take one step closer to point
@@ -65,12 +65,12 @@ public:
     /*
      * Return whether the unit crashed
      */
-    virtual bool isToBeJunked() const;
+    virtual bool isToBeJunked() const = 0;
 
     /*
     * Draws this unit onto the given QGraphicsScene.
     */
-    virtual void draw(QGraphicsScene* scene) const;
+    virtual void draw(QGraphicsScene* scene) const = 0;
 
     /*
     * Teleport. Does not check for collision
