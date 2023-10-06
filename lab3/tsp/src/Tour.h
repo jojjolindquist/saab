@@ -46,6 +46,13 @@ public:
     * hela turens totalsträcka blir kortast. */
     void insertSmallest(Point p);
 
+    /* En metod som sätter in punkt p efter en nod så att
+     * inga korsningar i turen kommer ske, och vi får en
+     * kortare tur. */
+    void avoidCrossings(Point p);
+
+    bool isCrossing(Node* node, Node* testNode);
+
 
 private:
     Node* firstNode = nullptr;

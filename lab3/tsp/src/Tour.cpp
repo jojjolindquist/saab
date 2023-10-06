@@ -152,3 +152,29 @@ void Tour::insertSmallest(Point p)
         nearestNode->next = pNode;
     }
 }
+
+
+void Tour::avoidCrossings(Point p){
+
+}
+
+bool Tour::isCrossing(Node* node, Node* testNode){
+    Node* currentNode = firstNode; // håller koll på nuvarande noden när vi itererar
+    Point pPoint = node->point;
+    Point nextP = testNode->point; //testa om p->testNode skapar en korsning
+    while (currentNode != nullptr) {
+        if (currentNode != node){ // om vi är på den nod vi kollar om den korsar någon
+            Point currP = currentNode->point; //denna punkt och nästa bildar den linje
+            Point currNext = currentNode->next->point; //vi vill kolla om pPoint->nextP korsar
+          //TODO: räta linjens ekvation kolla om skär varandra
+
+
+        }
+        currentNode = currentNode->next; // hoppar till nästa nod
+        if (currentNode == firstNode){
+            currentNode = nullptr; //sätter till brytvillkoret
+        }
+
+    }
+    return true;
+}
