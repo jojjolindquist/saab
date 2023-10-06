@@ -34,9 +34,8 @@ GameState::GameState(GameState&& other){
     std::vector<Unit*> otherNewVector;
     otherNewVector.push_back(nullptr); //innehåller giltigt tomt värde
     other.units = otherNewVector;
-    Hero* otherNewHero = new Hero();
-    other.hero = *otherNewHero;
-    delete otherNewHero; //frigör nya pekarens minnesutrymme
+    Hero otherNewHero =  Hero();
+    other.hero = otherNewHero;
 }
 
 GameState& GameState:: operator=(GameState&& other){ //hoppar in hit när Hero dör
@@ -50,9 +49,8 @@ GameState& GameState:: operator=(GameState&& other){ //hoppar in hit när Hero d
     std::vector<Unit*> otherNewVector;
     otherNewVector.push_back(nullptr); //innehåller giltigt tomt värde
     other.units = otherNewVector;
-    Hero* otherNewHero = new Hero();
-    other.hero = *otherNewHero;
-    delete otherNewHero; //frigör nya pekarens minnesutrymme
+    Hero otherNewHero =  Hero();
+    other.hero = otherNewHero;
 
     return *this;
 }

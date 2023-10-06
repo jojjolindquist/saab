@@ -2,6 +2,8 @@
  * TDDD86 Robots
  * This file contains the declaration of the mainwindow class.
  * See mainwindow.cpp for implementation of each member.
+ *
+ * johli622 stias606
  */
 
 #ifndef MAINWINDOW_H

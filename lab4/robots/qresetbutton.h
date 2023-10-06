@@ -2,6 +2,8 @@
  * TDDD86 Robots
  * This file contains the declaration of the QResetButton class.
  * See qresetbutton.cpp for implementation of each member.
+ *
+ * johli622 stias606
  */
 
 #ifndef QRESETBUTTON_H

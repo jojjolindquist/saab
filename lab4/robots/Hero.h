@@ -4,6 +4,8 @@
  *
  * Hero, en subklass till Unit. Har en egen kopieringskonstruktor och draw-metod.
  * Representerar spelaren som användaren styr.
+ *
+ * johli622 stias606
  */
 
 #ifndef HERO_H

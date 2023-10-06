@@ -2,6 +2,8 @@
  * TDDD86 Robots
  * This file contains the declaration of the QGameOverWindow class.
  * See qgameoverwindow.cpp for implementation of each member.
+ *
+ * johli622 stias606
  */
 
 #ifndef QGAMEOVERWINDOW_H

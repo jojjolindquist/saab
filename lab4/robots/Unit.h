@@ -6,6 +6,8 @@
  * (OBS: våra kommentarer är på svenska. De engelska var med från början)
  * Unit, en klass för alla spelobjekt och deras metoder. Varje Unit har en
  * x- och y-koordinat.
+ *
+ * johli622 stias606
  */
 
 #ifndef UNIT_H

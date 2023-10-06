@@ -5,6 +5,8 @@
  * Maintains the game state:  Location of all robots, junk and hero.
  * Har ett Hero-objekt och en vektor med pekare till Units för
  * varje spelobjekt på skärmen.
+ *
+ * johli622 stias606
  */
 
 #ifndef GAMESTATE_H

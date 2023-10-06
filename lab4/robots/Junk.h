@@ -4,6 +4,8 @@
  *
  * Junk, en subklass till Unit som är kraschade robotar. De är
  * orörliga och döda, samt överskrider Units metoder.
+ *
+ * johli622 stias606
  */
 
 #ifndef JUNK_H

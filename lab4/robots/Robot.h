@@ -6,6 +6,8 @@
  * överskriver Units, så att de beter sig som en robot (levande och rörliga).
  * Robotar är spelarens (Hero's) motståndare. Robotar blir till Junk
  * vid kollision med Junk eller andra robotar.
+ *
+ * johli622 stias606
  */
 
 #ifndef ROBOT_H
