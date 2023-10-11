@@ -153,22 +153,52 @@ void Tour::insertSmallest(Point p)
     }
 }
 
+bool Tour::intersect(const double& kTestPoint, const double& mTestPoint, const double& kCurr,
+                     const double& mCurr, const double x1, const double x2){
+    if (kTestPoint == kCurr){ //parallella
+        return false;
+    }
+    /*cout << "kCurr :" + to_string(kCurr) << endl;
+    cout << "mCurr :" << mCurr << endl;
+    cout << "kTest :" + to_string(kTestPoint) << endl;
+    cout << "mTest :" + to_string(mTestPoint) << endl; */
+    double intersectionX = (mTestPoint - mCurr) / (kCurr - kTestPoint); //hittar en skärningspunkt
+    cout << "intersection :" + to_string(intersectionX) << endl;
+    cout << "x1 :" + to_string(x1) << endl;
+    cout << "x2 :" + to_string(x2) << endl;
+    if (x1 < x2){
+        if (intersectionX > x1 && intersectionX < x2){
+            cout << "intersect" << endl;
+            return true; //inom linjernas intervall, en giltig skärningspunkt!
 
-void Tour::avoidCrossings(Point p){
-
+        }
+    }
+    else{
+        if (intersectionX < x1 && intersectionX > x2){
+            cout << "intersect" << endl;
+            return true; //inom linjernas intervall, en giltig skärningspunkt!
+        }
+    }
+    cout << "no intersection" <<endl;
+    return false;
 }
 
-bool Tour::isCrossing(Node* node, Node* testNode){
+bool Tour::isCrossing(const Node* insertNode, const Node* testNode){ //kolla om p dragen till nästa nod skapar en korsning till någon annan dragen linje
     Node* currentNode = firstNode; // håller koll på nuvarande noden när vi itererar
-    Point pPoint = node->point;
-    Point nextP = testNode->point; //testa om p->testNode skapar en korsning
+    Point insertPoint = insertNode->point;
+    Point testPoint = testNode->point; //testa om p->testNode skapar en korsning
     while (currentNode != nullptr) {
-        if (currentNode != node){ // om vi är på den nod vi kollar om den korsar någon
+        if (currentNode != insertNode){ // om vi är på den nod vi kollar om den korsar någon
             Point currP = currentNode->point; //denna punkt och nästa bildar den linje
-            Point currNext = currentNode->next->point; //vi vill kolla om pPoint->nextP korsar
-          //TODO: räta linjens ekvation kolla om skär varandra
-
-
+            Point currPNext = currentNode->next->point; //vi vill kolla om pPoint->nextP korsar
+          //räta linjens ekvation kolla om skär varandra
+            double kCurr = (currP.y - currPNext.y)/(currP.x - currPNext.x);
+            double kTestPoint = (insertPoint.y - testPoint.y)/(insertPoint.x - testPoint.x);
+            double mCurr = currP.y - (kCurr*currP.x); //hittar räta linjens ekvation
+            double mTestPoint = insertPoint.y - (kTestPoint*insertPoint.x); //hittar räta linjens ekvation
+            if (intersect(kTestPoint, mTestPoint, kCurr, mCurr, insertPoint.x, testPoint.x)){ //skär de varandra?
+                return true;
+            }
         }
         currentNode = currentNode->next; // hoppar till nästa nod
         if (currentNode == firstNode){
@@ -176,5 +206,32 @@ bool Tour::isCrossing(Node* node, Node* testNode){
         }
 
     }
-    return true;
+    return false;
 }
+
+void Tour::avoidCrossings(Point p){
+    double smallestDistance = 1.7976931348623157E+308; // sätter största vä'rdet för double
+    Node* nearestNode = nullptr; // sparar undan noden som är närmast p
+    Node* currentNode = firstNode; // pekar på noden vi för tillfället kollar på
+    Node* pNode = new Node(p, nullptr);
+    if (currentNode == nullptr){ // om tour är tom, sätt p som firstnode
+        firstNode = pNode;
+        firstNode->next = firstNode;
+    }else{
+        while (currentNode != nullptr) {
+            double distance = p.distanceTo(currentNode->point); // räknar ut avståndet mellan punkterna
+            if (distance < smallestDistance && !isCrossing(pNode, currentNode)){ // om vi har ny nod som är närmare punkten
+                smallestDistance = distance;
+                nearestNode = currentNode;
+            }
+            currentNode = currentNode->next; // hoppar till nästa nod
+            if (currentNode == firstNode){
+                currentNode = nullptr; //sätter till brytvillkoret
+            }
+        }
+        Node* nextNode = nearestNode->next; // stopppar in noden p i tour vid den nod som är närmast p
+        nearestNode->next = new Node(p, nextNode);
+    }
+}
+
+

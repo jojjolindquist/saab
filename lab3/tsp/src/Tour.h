@@ -51,7 +51,10 @@ public:
      * kortare tur. */
     void avoidCrossings(Point p);
 
-    bool isCrossing(Node* node, Node* testNode);
+    bool isCrossing(const Node* node, const Node* testNode);
+
+    bool intersect(const double& kTestPoint, const double& mTestPoint, const double& kCurr,
+                   const double& mCurr, const double x1, const double x2);
 
 
 private:

@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -std=c++11 -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../tsp -I. -I/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/lib/ -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I../tsp -I. -I/home/johli622/tddd86-ht23/lab3/tsp/lib/ -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = TSP1.0.0
-DISTDIR = /home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug/.tmp/TSP1.0.0
+DISTDIR = /home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug/.tmp/TSP1.0.0
 LINK          = g++
 LFLAGS        = 
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
@@ -181,27 +181,27 @@ first: all
 
 TSP:  $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
-	cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/bier127.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/circuit1290.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/germany15112.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/mona-100k.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/mona-20k.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/mona-50k.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/tsp0.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/tsp1.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/tsp10-nearest.ans" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/tsp10-optimal.ans" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/tsp10-smallest.ans" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/tsp10.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/tsp100.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/tsp1000.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/tsp2.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/tsp3.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/tsp4.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/tsp5.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/tsp8.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/tsp85900.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/tsp/res/usa13509.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/bier127.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/circuit1290.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/germany15112.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/mona-100k.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/mona-20k.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/mona-50k.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/tsp0.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/tsp1.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/tsp10-nearest.ans" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/tsp10-optimal.ans" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/tsp10-smallest.ans" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/tsp10.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/tsp100.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/tsp1000.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/tsp2.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/tsp3.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/tsp4.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/tsp5.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/tsp8.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/tsp85900.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab3/tsp/res/usa13509.txt" "/home/johli622/tddd86-ht23/lab3/build-TSP-Desktop-Debug" 
 	
 
 Makefile: ../tsp/TSP.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
