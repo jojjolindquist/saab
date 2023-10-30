@@ -39,18 +39,23 @@ int main(int argc, char *argv[]) {
     //TEST
 
     // define 4 points forming a square
-    /*Point p(100.0, 100.0);
+    Point p(100.0, 100.0);
     Point q(500.0, 100.0);
     Point r(500.0, 500.0);
     Point s(100.0, 500.0);
             // Set up a Tour with those four points
             // The constructor should link p->q->r->s->p
-    Tour squareTour(p, q, r, s);
+    /*Tour tour = Tour();
+    tour.avoidCrossings(p);
+    tour.avoidCrossings(q);
+    tour.avoidCrossings(r);
+    tour.avoidCrossings(s);
             // Output the Tour
-    squareTour.show();
-    cout << squareTour.size() << endl;
-    cout << squareTour.distance() << endl;
-    squareTour.draw(scene);*/
+    tour.show();
+    cout << tour.size() << endl;
+    cout << tour.distance() << endl;
+    tour.draw(scene);
+    */
 
     // run insertion heuristic
     Tour tour;
@@ -59,11 +64,12 @@ int main(int argc, char *argv[]) {
     while (input >> x >> y) {
         Point p(x, y);
         tour.avoidCrossings(p);
+        scene->clear();
         //uncomment the 4 lines below to animate
-        //tour.draw(scene);
-        //std::chrono::milliseconds dura(50);
-       // std::this_thread::sleep_for(dura);
-        //a.processEvents();
+        tour.draw(scene);
+        std::chrono::milliseconds dura(3000);
+        std::this_thread::sleep_for(dura);
+        a.processEvents();
     }
     input.close();
 

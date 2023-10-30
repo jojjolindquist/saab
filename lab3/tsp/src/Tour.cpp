@@ -167,14 +167,14 @@ bool Tour::intersect(const double& kTestPoint, const double& mTestPoint, const d
     cout << "x1 :" + to_string(x1) << endl;
     cout << "x2 :" + to_string(x2) << endl;
     if (x1 < x2){
-        if (intersectionX > x1 && intersectionX < x2){
+        if (intersectionX >= x1 && intersectionX <= x2){
             cout << "intersect" << endl;
             return true; //inom linjernas intervall, en giltig skärningspunkt!
 
         }
     }
     else{
-        if (intersectionX < x1 && intersectionX > x2){
+        if (intersectionX <= x1 && intersectionX >= x2){
             cout << "intersect" << endl;
             return true; //inom linjernas intervall, en giltig skärningspunkt!
         }
@@ -209,7 +209,7 @@ bool Tour::isCrossing(const Node* insertNode, const Node* testNode){ //kolla om 
     return false;
 }
 
-void Tour::avoidCrossings(Point p){
+void Tour::avoidCrossings(Tour& crossedTour){
     double smallestDistance = 1.7976931348623157E+308; // sätter största vä'rdet för double
     Node* nearestNode = nullptr; // sparar undan noden som är närmast p
     Node* currentNode = firstNode; // pekar på noden vi för tillfället kollar på
@@ -221,17 +221,19 @@ void Tour::avoidCrossings(Point p){
         while (currentNode != nullptr) {
             double distance = p.distanceTo(currentNode->point); // räknar ut avståndet mellan punkterna
             if (distance < smallestDistance && !isCrossing(pNode, currentNode)){ // om vi har ny nod som är närmare punkten
-                smallestDistance = distance;
-                nearestNode = currentNode;
-            }
+                    smallestDistance = distance;
+                    nearestNode = currentNode;
+                }
+
+
             currentNode = currentNode->next; // hoppar till nästa nod
             if (currentNode == firstNode){
                 currentNode = nullptr; //sätter till brytvillkoret
             }
-        }
         Node* nextNode = nearestNode->next; // stopppar in noden p i tour vid den nod som är närmast p
         nearestNode->next = new Node(p, nextNode);
     }
+}
 }
 
 
