@@ -22,6 +22,7 @@ static string CUBES[NUM_CUBES] = {        // the letters on all 6 sides of every
 };
 
 void Boggle::createRandomBoard(){
+    visited.clear(); //nytt boggle -> ta bort visited
     shuffle(CUBES, 16); //shufflade tärningar på brädet
     for (int i = 0; i < NUM_CUBES; i++){
         string cube = CUBES[i];
@@ -33,6 +34,7 @@ void Boggle::createRandomBoard(){
 }
 
 void Boggle::createCustomizedBoard(string letters){
+    visited.clear(); //nytt boggle -> ta bort visited
     for (int i = 0; i < NUM_CUBES; i++){
         int row = i / 4; //heltalsdivision
         int col = i % 4;
@@ -116,7 +118,9 @@ bool Boggle::recursiveSearch(string correctWord, int row, int col, string chosen
             for(int j=-1; j<2; j++){
               if(!(i==0 && j==0) && board.inBounds(row+i,col+j)){
                    string letter = board.get(row+i,col+j); //giltig koordinat, hämta nu värdet där
-                   if (isPrefix(chosen + letter, correctWord)){
+                   pair<int, int> neighbor = pair<int, int>(i,j);
+                   if (visited.find(neighbor) == visited.end() && isPrefix(chosen+letter, correctWord)){
+                  // if (isPrefix(chosen + letter, correctWord)){
                        //TODO: kolla om prefix till correctword, isåfall ta bort, skicka in ny version av
                        //TODO: markera visited neighbours
                        //TODO: hitta inte samma ord två gånger

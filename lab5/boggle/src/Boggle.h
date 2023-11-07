@@ -35,6 +35,7 @@ public:
 private:
     Grid<string> board = Grid<string>(4,4);
     Lexicon lexicon = Lexicon("EnglishWords.dat");
+    unordered_set<pair<int, int>> visited;
 };
 
 #endif
