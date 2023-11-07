@@ -93,4 +93,49 @@ bool Boggle::insertWord(string word){
     return false;
 }
 
+bool Boggle::checkWordOnBoard(string word){
+    string firstLetter = string(1, word[0]);
+    for (int i = 0; i < board.nRows; i ++){
+        for (int j = 0; j < board.nCols; j ++){
+            if (board.get(i,j) == firstLetter){
+                if (recursiveSearch(word, i, j)){
+                    return true;
+                }
+            }
+        }
+    }
+ return false;
+}
+
+bool Boggle::recursiveSearch(string correctWord, int row, int col, string chosen){
+    if (correctWord == ""){
+        return true;
+    }
+    else{
+        for (int i=-1; i<2; i++){
+            for(int j=-1; j<2; j++){
+              if(!(i==0 && j==0) && board.inBounds(row+i,col+j)){
+                   string letter = board.get(row+i,col+j); //giltig koordinat, hämta nu värdet där
+                   if (isPrefix(chosen + letter, correctWord)){
+                       //TODO: kolla om prefix till correctword, isåfall ta bort, skicka in ny version av
+                       //TODO: markera visited neighbours
+                       //TODO: hitta inte samma ord två gånger
+                       int lengthPrefix = chosen.length();
+                       string corrWordWithoutPrefix = correctWord.substr(0, lengthPrefix);
+                       recursiveSearch(corrWordWithoutPrefix, row + i, col+j, chosen + letter);
+                   }
+                }
+            }
+        }
+    }
+
+}
+
+bool Boggle::isPrefix(string substring, string word){
+    if (word.find(substring) == 0){ //find() returnerar position som substrängen börjar, ett prefix börjar på pos 0
+        return true;
+    }
+    return false;
+}
+
 
