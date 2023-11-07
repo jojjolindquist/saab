@@ -45,7 +45,7 @@ void playOneGame(Boggle& boggle) {
         cout << "Type a word (or press enter to end your turn): " << endl;
         string line;
         getline(cin, line);
-        clearConsole();
+        //clearConsole();
         if (!line.empty()){ //tryckte enter
             if (boggle.insertWord(line)){ //lyckades sätta in ordet
                 cout << "You found a new word! \"" + toUpperCase(line) + "\"" << endl;

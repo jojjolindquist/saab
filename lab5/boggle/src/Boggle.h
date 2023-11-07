@@ -28,14 +28,14 @@ public:
     string wordsToString();
     int score();
     bool insertWord(string word);
-    bool checkWordOnBoard(string word);
-    bool recursiveSearch(string correctWord, int row, int col, string chosen = "");
+    bool wordOnBoard(string word);
+    bool recursiveSearch(string correctWord, int row, int col, string chosen);
     bool isPrefix(string substring, string word);
 
 private:
     Grid<string> board = Grid<string>(4,4);
     Lexicon lexicon = Lexicon("EnglishWords.dat");
-    unordered_set<pair<int, int>> visited;
+    unordered_set<string> visited;
 };
 
 #endif

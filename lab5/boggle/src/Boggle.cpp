@@ -88,19 +88,20 @@ int Boggle::score(){
 }
 
 bool Boggle::insertWord(string word){
-    if (word.size() >= 4 && lexicon.contains(word) && humanWords.find(word) == humanWords.end()){ //om == end() så finns inte ordet redan i vårt set
+    if (word.size() >= 4 && lexicon.contains(word) && humanWords.find(word) == humanWords.end()
+        && wordOnBoard(word)){ //om == end() så finns inte ordet redan i vårt set
         humanWords.insert(toUpperCase(word));
         return true;
     }
     return false;
 }
 
-bool Boggle::checkWordOnBoard(string word){
+bool Boggle::wordOnBoard(string word){
     string firstLetter = string(1, word[0]);
     for (int i = 0; i < board.nRows; i ++){
         for (int j = 0; j < board.nCols; j ++){
             if (board.get(i,j) == firstLetter){
-                if (recursiveSearch(word, i, j)){
+                if (recursiveSearch(word, i, j, board.get(i,j))){
                     return true;
                 }
             }
@@ -109,8 +110,10 @@ bool Boggle::checkWordOnBoard(string word){
  return false;
 }
 
-bool Boggle::recursiveSearch(string correctWord, int row, int col, string chosen){
+bool Boggle::recursiveSearch(string correctWord, int row, int col, string chosen = ""){
     if (correctWord == ""){
+        cout << correctWord << endl;
+        cout << chosen << endl;
         return true;
     }
     else{
@@ -118,7 +121,9 @@ bool Boggle::recursiveSearch(string correctWord, int row, int col, string chosen
             for(int j=-1; j<2; j++){
               if(!(i==0 && j==0) && board.inBounds(row+i,col+j)){
                    string letter = board.get(row+i,col+j); //giltig koordinat, hämta nu värdet där
-                   pair<int, int> neighbor = pair<int, int>(i,j);
+                   cout << letter << endl;
+                   string neighbor = to_string(row+i) + to_string(col+j); //alla strängar med koordinater kommer vara unika
+                   cout << neighbor << endl;
                    if (visited.find(neighbor) == visited.end() && isPrefix(chosen+letter, correctWord)){
                        visited.insert(neighbor);
                   // if (isPrefix(chosen + letter, correctWord)){
@@ -126,17 +131,21 @@ bool Boggle::recursiveSearch(string correctWord, int row, int col, string chosen
                        //TODO: markera visited neighbours
                        //TODO: hitta inte samma ord två gånger
                        int lengthPrefix = chosen.length();
-                       string corrWordWithoutPrefix = correctWord.substr(0, lengthPrefix);
-                       recursiveSearch(corrWordWithoutPrefix, row + i, col+j, chosen + letter);
+                       string prefWord = correctWord.substr(0, lengthPrefix);
+                       correctWord = correctWord.substr(lengthPrefix-1, correctWord.length()-1); //välj
+                       recursiveSearch(correctWord, row + i, col+j, chosen); //går till grannen, tilldelar chosen igen
+                       correctWord = chosen+letter + correctWord; //välj tillbaka
+
                    }
                 }
             }
         }
     }
-
 }
 
 bool Boggle::isPrefix(string substring, string word){
+    bool trueFalse = word.find(substring) == 0;
+    cout << to_string(trueFalse) << endl;
     if (word.find(substring) == 0){ //find() returnerar position som substrängen börjar, ett prefix börjar på pos 0
         return true;
     }
