@@ -120,6 +120,7 @@ bool Boggle::recursiveSearch(string correctWord, int row, int col, string chosen
                    string letter = board.get(row+i,col+j); //giltig koordinat, hämta nu värdet där
                    pair<int, int> neighbor = pair<int, int>(i,j);
                    if (visited.find(neighbor) == visited.end() && isPrefix(chosen+letter, correctWord)){
+                       visited.insert(neighbor);
                   // if (isPrefix(chosen + letter, correctWord)){
                        //TODO: kolla om prefix till correctword, isåfall ta bort, skicka in ny version av
                        //TODO: markera visited neighbours
