@@ -6,12 +6,12 @@
 
 #ifndef _boggle_h
 #define _boggle_h
-
 #include <iostream>
 #include <string>
 #include "grid.h"
 #include "lexicon.h"
 #include <unordered_set>
+// TODO: include any other header files you need
 
 using namespace std;
 
@@ -21,21 +21,26 @@ public:
     const int MIN_WORD_LENGTH = 4;
     const int BOARD_SIZE = 4;
     unordered_set<string> humanWords;
+    unordered_set<string> computerWords;
     void createRandomBoard();
     void createCustomizedBoard(string letters);
     void showBoard();
     bool containsValidLetters(string letters);
-    string wordsToString();
-    int score();
+    string wordsToString(unordered_set<string> wordsVec);
+    int score(unordered_set<string> wordsVec);
     bool insertWord(string word);
     bool wordOnBoard(string word);
-    bool recursiveSearch(string correctWord, int row, int col, string chosen);
+    bool correctHumanGuess(string correctWord, int row, int col, string chosen);
     bool isPrefix(string substring, string word);
+    void findAllWords();
+    unordered_set<string> computerSearch(int row, int col, string letter);
+    void reset();
 
 private:
     Grid<string> board = Grid<string>(4,4);
     Lexicon lexicon = Lexicon("EnglishWords.dat");
     unordered_set<string> visited;
+
 };
 
 #endif

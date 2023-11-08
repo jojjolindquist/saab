@@ -34,6 +34,7 @@ int main() {
         if (!yesOrNo("Play again (Y/N)? ")) {
             break;
         }
+        boggle.reset();
     }
 
     cout << "Have a nice day." << endl;
@@ -78,5 +79,4 @@ bool yesOrNo(string prompt) {
         }
     }
 }
-
 

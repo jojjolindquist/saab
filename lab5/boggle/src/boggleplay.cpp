@@ -40,12 +40,12 @@ void playOneGame(Boggle& boggle) {
         cout << "It's your turn!" << endl;
         boggle.showBoard();
         cout << "" << endl;
-        cout << "Your words (" << boggle.humanWords.size() <<  "): " << boggle.wordsToString() << endl;
-        cout << "Your score: " << boggle.score() << endl;
+        cout << "Your words (" << boggle.humanWords.size() <<  "): " << boggle.wordsToString(boggle.humanWords) << endl;
+        cout << "Your score: " << boggle.score(boggle.humanWords) << endl;
         cout << "Type a word (or press enter to end your turn): " << endl;
         string line;
         getline(cin, line);
-        //clearConsole();
+        clearConsole();
         if (!line.empty()){ //tryckte enter
             if (boggle.insertWord(line)){ //lyckades sätta in ordet
                 cout << "You found a new word! \"" + toUpperCase(line) + "\"" << endl;
@@ -57,6 +57,15 @@ void playOneGame(Boggle& boggle) {
         else{ //tryckte enter pga tom line
             guess = false;
         }
+    }
+    cout << "It's my turn!" << endl;
+    boggle.findAllWords();
+    cout << "My words (" << boggle.computerWords.size() <<  "): " << boggle.wordsToString(boggle.computerWords) << endl;
+    cout << "My score: " << boggle.score(boggle.computerWords) << endl;
+    if (boggle.computerWords.size() > boggle.humanWords.size()){
+        cout << "Ha ha ha, I destroyed you. Better luck next time, puny human!" << endl;
+    } else { // datorn kan aldrig förlora då den hittar alla ord, antingen lika eller så vinner datorn
+        cout << "Our scores are equal, well played! Both won. " << endl;
     }
 
 }
@@ -72,5 +81,3 @@ void clearConsole() {
     std::system("clear");
 #endif
 }
-
-
