@@ -151,12 +151,11 @@ void Boggle::findAllWords(){
                 // https://stackoverflow.com/questions/7089494/how-to-merge-multiple-sets-into-a-single-stdset-set-union
             }
     }
-    for (const auto& word: humanWords){
-        computerWords.erase(word);
-    }
+
 }
 unordered_set<string> Boggle::computerSearch(int row, int col,string prefix){
     unordered_set<string> foundWords;
+    visited.insert(to_string(row) + to_string(col));
     for(int i=-1; i<2; i++){
         for(int j=-1; j<2; j++){
           if(!(i==0 && j==0) && board.inBounds(row+i,col+j)){
@@ -165,12 +164,14 @@ unordered_set<string> Boggle::computerSearch(int row, int col,string prefix){
                string newPrefix = prefix + letterNeighbour;
                if (visited.find(neighbor) == visited.end() && lexicon.containsPrefix(newPrefix)){
                    visited.insert(neighbor);
-                   if (lexicon.contains(newPrefix) && foundWords.find(newPrefix) == foundWords.end() &&
-                           newPrefix.size() >= 4) {
+
+                   if (lexicon.contains(newPrefix) && humanWords.find(toUpperCase(newPrefix)) == humanWords.end()
+                           && foundWords.find(newPrefix) == foundWords.end() && newPrefix.size() >= 4 ) {
                      // om vi hittade ett giltigt ord
                        foundWords.insert(newPrefix);
+
                    }
-                   unordered_set<string> subres = computerSearch(row + i, col + i, newPrefix); //bygger upp chosen i varje anrop
+                   unordered_set<string> subres = computerSearch(row + i, col + j, newPrefix); //bygger upp chosen i varje anrop
                    foundWords.insert(subres.begin(), subres.end());
                    visited.erase(neighbor); //ta bort neighbor för backtracking
                }
