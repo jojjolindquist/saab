@@ -1,6 +1,7 @@
-// You will edit and turn in this CPP file.
-// Also remove these comments here and add your own.
-// TODO: remove this comment header and replace with your own
+// Boggleplay hanterar user input och skickar in alla svar till boggle-objektet för att
+// kunna spela en omgång. Den har en metod som hanterar en spelomgång av boggle och en som
+// raderar texten i konsollen.
+// stias606 och johli622
 
 #include <cstdlib>
 #include <iostream>
@@ -38,8 +39,7 @@ void playOneGame(Boggle& boggle) {
     bool guess = true;
     while (guess){
         cout << "It's your turn!" << endl;
-        boggle.showBoard();
-        cout << "" << endl;
+        cout << boggle.showBoard() << endl;
         cout << "Your words (" << boggle.humanWords.size() <<  "): " << boggle.wordsToString(boggle.humanWords) << endl;
         cout << "Your score: " << boggle.score(boggle.humanWords) << endl;
         cout << "Type a word (or press enter to end your turn): " << endl;
@@ -47,7 +47,7 @@ void playOneGame(Boggle& boggle) {
         getline(cin, line);
         clearConsole();
         if (!line.empty()){ //tryckte enter
-            if (boggle.insertWord(line)){ //lyckades sätta in ordet
+            if (boggle.insertWord(line)){ //lyckades sätta in ordet (ordet fanns på brädet och giltigt)
                 cout << "You found a new word! \"" + toUpperCase(line) + "\"" << endl;
             }
             else{
