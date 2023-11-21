@@ -106,9 +106,10 @@ void MyPriorityQueue<T,C>::downHeapBubbling(){
     while (!isLeaf(pos) && leftChild(pos) != -1) { // gåt igenom hela trädet
           int childValue = leftChild(pos); // hämtar värdet för vänstra barnet
           if ((childValue<(vector_array.size()-1)) &&
-                  (strictly_larger_operator(vector_array[childValue],vector_array[childValue+1])))
-            childValue++; // childvalue är nu indexet av barnet med större värde
-          if (!strictly_larger_operator(vector_array[pos], vector_array[childValue])) return;
+                  (strictly_larger_operator(vector_array[childValue],vector_array[childValue+1]))) // om högre barnet är större än vänstra
+            childValue++; // childvalue är nu indexet av barnet med större värde (högra)
+          // om föräldern är större än barnet (största av höger eller vänster) -> gör ingenting, trädet är klart
+          if (!strictly_larger_operator(vector_array[pos], vector_array[childValue])) return; 
           swap(pos, childValue);
           pos = childValue;  // Gå neråt till vänstra barnet
         }

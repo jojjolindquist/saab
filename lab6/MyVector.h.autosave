@@ -64,8 +64,8 @@ template<typename T>
 MyVector<T>::MyVector(const MyVector& other){
     capacity = other.capacity;
     numberOfElements = other.numberOfElements;
-    elementsArray = new T[capacity];
-    std::copy(other.elementsArray, other.elementsArray + other.capacity, elementsArray);
+    elementsArray = new T[capacity]; // skapar 
+    std::copy(other.elementsArray, other.elementsArray + other.capacity, elementsArray); // kopierar elementen till nya arrayen
 
 }
 
