@@ -1,8 +1,6 @@
-// This is the first .h file you will edit
-// We have provided a skeleton for you,
-// but you must finish it as described in the spec.
-// Also remove these comments here and add your own, as well as on the members.
-// TODO: remove this comment header
+// johli622, stias606
+// En vektor som implementeras med hjälp av en array. Den har variabler som har koll på storlek
+// samt antalet element i arrayen för tillfället. Vektorn kan lagra element av valfri typ.
 
 #ifndef MY_VECTOR_H
 #define MY_VECTOR_H
@@ -14,38 +12,86 @@ class MyVector
 {
 
 public:
+    /*
+     * Konstruktor som initierar kapacitet till 1, antal element till 0
+     * samt initierar en tom array
+     */
     MyVector();
 
+    /*
+     * Frigör utrymmet för alla element
+     */
     ~MyVector();
 
+    /*
+     * En copy-konstruktor, initierar denna MyVector till en given MyVector
+     */
     MyVector(const MyVector& other);
 
+    /*
+     * Tilldelningsoperator som kopierar över innheållet från en given Myvector
+     * till en annan MyVector
+     */
     MyVector& operator =(const MyVector& other);
 
-
+    /*
+     * Lägger till ett element längst bak i vektorn
+     */
     void push_back(const T&);
 
+    /*
+     * Tar bort sista elementet i vektorn
+     */
     void pop_back();
 
+    /*
+     * Returnerar ett element med ett givet index
+     */
     T& operator[](unsigned i);
 
+    /*
+     * Returnerar ett element med ett givet index
+     */
     const T& operator[](unsigned i)const;
 
+    /*
+     * Returnerar true om vektorn är tom
+     */
     bool empty()const;
 
+    /*
+     * Returnerar en pekare till första elementet i vektorn
+     */
     T* begin();
 
+    /*
+     * Returnerar en pekare till sista elementet i vektorn
+     */
     T* end();
 
+    /*
+     * Frigör minne från nuvarande MyVector samt initierar en ny
+     */
     void clear();
 
+    /*
+     * Returnerar antalet element i vektorn
+     */
     unsigned size()const;
 
 private:
     unsigned capacity; // arrayens storlek
     unsigned numberOfElements; // antal element arrayen har för tillfället
     T* elementsArray;
+
+    /*
+     * Kollar om arrayen kapacitet måste utökas och gör det i sånna fall
+     */
     void checkCapacity();
+
+    /*
+     * Initierar en ny vektor med kapacitet 1 och antal element 0.
+     */
     void resetOrInitialize();
 
 };
@@ -64,8 +110,8 @@ template<typename T>
 MyVector<T>::MyVector(const MyVector& other){
     capacity = other.capacity;
     numberOfElements = other.numberOfElements;
-    elementsArray = new T[capacity];
-    std::copy(other.elementsArray, other.elementsArray + other.capacity, elementsArray);
+    elementsArray = new T[capacity]; // initierar array
+    std::copy(other.elementsArray, other.elementsArray + other.capacity, elementsArray); // kopierar elementen till nya arrayen
 
 }
 
@@ -75,7 +121,7 @@ MyVector<T>& MyVector<T>::operator =(const MyVector& other){
     numberOfElements = other.numberOfElements;
     delete [] elementsArray;
     elementsArray = new T[capacity];
-    for (int i =0; i < numberOfElements; ++i){
+    for (int i =0; i < numberOfElements; ++i){ // kopierar över alla elementen från other
         elementsArray[i] = other.elementsArray[i];
     }
     return *this;

@@ -1,8 +1,7 @@
-// This is the second .h file you will edit
-// We have provided a skeleton for you,
-// but you must finish it as described in the spec.
-// Also remove these comments here and add your own, as well as on the members.
-// TODO: remove this comment header
+// johli622, stias606
+// En prioritetskö som implementerar en max-heap för att sortera
+// element. Har ett fält av typen MyVector som lagrar elementen
+// och en jämförelseoperator för att kunna sortera elementen.
 
 #ifndef MY_PRIORITY_QUEUE_H
 #define MY_PRIORITY_QUEUE_H
@@ -19,19 +18,40 @@ class MyPriorityQueue
     C strictly_larger_operator;
 
 public:
+    /*
+     * Konstruktor som skapar tom vektor med kapacitet 1
+     */
     MyPriorityQueue();
 
+    /*
+     * Default destruktor
+     */
     ~MyPriorityQueue();
 
+    /*
+     * Lägger till ett nytt element på rätt plats i heapen samt sorterar elementen.
+     */
     void push(const T& t);
 
+    /*
+     * Returnerar roten dvs det element med högst prioritet
+     */
     T top()const;
 
+    /*
+     * Tar bort roten och balanserar resten av heapen
+     */
     void pop();
 
+    /*
+     * Returnerar sant om heapen är tom
+     */
     bool empty()const;
 
-  unsigned size() const;
+    /*
+     * Returnerar antalet element i heapen
+     */
+    unsigned size() const;
 
 private:
     void upHeapBubbling();
@@ -103,11 +123,12 @@ int MyPriorityQueue<T,C>::parent(int pos){
 template <typename T, typename C>
 void MyPriorityQueue<T,C>::downHeapBubbling(){
     int pos = 0;
-    while (!isLeaf(pos) && leftChild(pos) != -1) { // gåt igenom hela trädet
+    while (!isLeaf(pos) && leftChild(pos) != -1) { // går igenom hela trädet
           int childValue = leftChild(pos); // hämtar värdet för vänstra barnet
           if ((childValue<(vector_array.size()-1)) &&
-                  (strictly_larger_operator(vector_array[childValue],vector_array[childValue+1])))
-            childValue++; // childvalue är nu indexet av barnet med större värde
+                  (strictly_larger_operator(vector_array[childValue],vector_array[childValue+1]))) // om högre barnet är större än vänstra
+            childValue++; // childvalue är nu indexet av barnet med större värde (högra)
+          // om föräldern är större än barnet (största av höger eller vänster) -> gör ingenting, trädet är klart
           if (!strictly_larger_operator(vector_array[pos], vector_array[childValue])) return;
           swap(pos, childValue);
           pos = childValue;  // Gå neråt till vänstra barnet
@@ -124,7 +145,7 @@ int MyPriorityQueue<T,C>::leftChild(int pos){
 }
 template <typename T, typename C>
 void MyPriorityQueue<T,C>::swap(int pos1, int pos2){
-    T temp = vector_array[pos1];
+    T temp = vector_array[pos1]; // temp variabel för att hålla reda på värdet'
     vector_array[pos1] = vector_array[pos2];
     vector_array[pos2] = temp;
 
