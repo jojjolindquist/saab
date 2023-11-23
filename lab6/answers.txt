@@ -1,0 +1,13 @@
+Identifiera de metoder ̈ där variablerna eventQueue och allTheFish används.
+Vilken funktion har de?
+
+allTheFish används i addFish, harvestTonnageNow, och destruktorn. eventQueue används i scheduleEvent, run och destruktorn. allTheFish är en vektor som innehåller pekare till fiskar. Lagrar alla fiskobjekt. eventQueue är en priorityQueue som innehåller pekare till händelser *Event, och en vektor med Events och en EventComparator som kan ordna elementen i prioritetskön. Lagrar alla events.
+
+Hitta par:
+
+(70000, 260), (71000, 550), (90000, 600).
+Påverkas av båda då en låg catchable age och för hög landing fångar man för många fiskar och populationen dör ut. Om det är tvärtom finns det inga fiskar att fiska pga låg ålder och populationen överbefolkas -> dör ut. 
+
+Vart allokeras minnet/befrias? Sätt till parametrar och testa med valgrind.
+
+I Event.cpp i hatchEvent allokeras minne för en ny fisk, och befrias i deathEvent, spawnEvent, matureEvent. I Simulation.cpp frigörs minnet för fiskar i destruktorn och harvestTonnageNow. I main allokeras minne för olika typer av events, men också i Event i harvestEvent och printEvent, matureEvent, SpawnEvent, processEvent. Destruktorn för Event kallas automaitskt, och inte i koden. Med de givna värdena fick vi inga minnesläckor, så alla nya pekare måste frigöras korrekt under körningen.
