@@ -28,7 +28,7 @@ void render_line(QGraphicsScene* scene, const Point& p1, const Point& p2) {
     p1.lineTo(scene, p2);
 }
 
-int main(int argc, char *argv[]) {
+int slow(int argc, char *argv[]){
     QApplication a(argc, argv);
 
     // open file
@@ -91,4 +91,8 @@ int main(int argc, char *argv[]) {
          << " milliseconds." << endl;
 
     return a.exec(); // start Qt event loop
+}
+
+int main(int argc, char *argv[]) {
+    slow(argc, argv);
 }
