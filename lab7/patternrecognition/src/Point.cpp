@@ -3,6 +3,7 @@
  * This file contains the implementation of the Point class.
  * See Point.h for comments about each member.
  * Your code should work properly with an unmodified version of this file.
+ * stias606, johli622
  */
 
 #include <limits>

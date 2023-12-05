@@ -3,6 +3,7 @@
  * This file contains the declaration of the Point class.
  * See Point.cpp for implementation of each member.
  * Your code should work properly with an unmodified version of this file.
+ * stias606, johli622
  */
 
 #ifndef POINT_H
