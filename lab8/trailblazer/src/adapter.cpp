@@ -190,6 +190,7 @@ shortestPath(TBLoc start,
     case DFS:
     default:
         cout << "Executing depth-first search algorithm ..." << endl;
+        graph->resetData();
         result = depthFirstSearch(*graph, startVertex, endVertex);
         break;
     }
