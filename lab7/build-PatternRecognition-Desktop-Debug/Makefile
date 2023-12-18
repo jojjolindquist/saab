@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -std=c++11 -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../patternrecognition -I. -I/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/lib/ -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I../patternrecognition -I. -I/home/johli622/tddd86-ht23/lab7/patternrecognition/lib/ -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = PatternRecognition1.0.0
-DISTDIR = /home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug/.tmp/PatternRecognition1.0.0
+DISTDIR = /home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug/.tmp/PatternRecognition1.0.0
 LINK          = g++
 LFLAGS        = 
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
@@ -141,7 +141,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		../patternrecognition/.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -173,57 +172,57 @@ first: all
 
 PatternRecognition:  $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
-	cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/equidistant.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/grid4x4.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/grid5x5.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/grid6x6.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/inarow.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input1.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input10.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input100.png" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input100.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input1000.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input10000.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input12.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input12800.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input150.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input1600.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input2.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input20.png" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input20.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input200.png" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input200.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input2000.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input250.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input3.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input300.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input3000.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input3200.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input350.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input40.png" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input40.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input400.png" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input400.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input4000.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input50.png" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input50.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input5000.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input56.png" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input56.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input6.png" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input6.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input6000.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input6400.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input8.png" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input8.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input80.png" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input80.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input800.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input8000.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input9.png" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/input9.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/mystery10089.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/patternrecognition/res/readme.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/equidistant.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/grid4x4.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/grid5x5.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/grid6x6.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/inarow.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input1.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input10.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input100.png" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input100.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input1000.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input10000.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input12.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input12800.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input150.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input1600.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input2.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input20.png" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input20.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input200.png" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input200.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input2000.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input250.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input3.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input300.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input3000.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input3200.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input350.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input40.png" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input40.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input400.png" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input400.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input4000.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input50.png" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input50.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input5000.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input56.png" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input56.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input6.png" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input6.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input6000.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input6400.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input8.png" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input8.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input80.png" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input80.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input800.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input8000.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input9.png" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/input9.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/mystery10089.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab7/patternrecognition/res/readme.txt" "/home/johli622/tddd86-ht23/lab7/build-PatternRecognition-Desktop-Debug" 
 	
 
 Makefile: ../patternrecognition/PatternRecognition.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -311,7 +310,6 @@ Makefile: ../patternrecognition/PatternRecognition.pro /usr/lib/x86_64-linux-gnu
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -418,7 +416,6 @@ Makefile: ../patternrecognition/PatternRecognition.pro /usr/lib/x86_64-linux-gnu
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
