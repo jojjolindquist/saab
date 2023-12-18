@@ -6,6 +6,8 @@
 #include "costs.h"
 #include "trailblazer.h"
 #include <algorithm>
+#include <queue>
+#include <pqueue.h>
 // TODO: include any other headers you need; remove this comment
 using namespace std;
 
@@ -48,7 +50,7 @@ vector<Node *> depthFirstSearch(BasicGraph& graph, Vertex* start, Vertex* end) {
     vector<Vertex*> path;
     Set<Vertex*> neighborsSet= graph.getNeighbors(start);
     vector<Vertex*> neighbors(neighborsSet.begin(), neighborsSet.end()); // skapar vektor av set
-    quickSort(neighbors, 0, neighbors.size() -1, start, graph); // sortera grannar efter kostnad
+    quickSort(neighbors, 0, neighbors.size() -1, start, graph); // sortera grannar efter kostnad (behövs den?)
 
       for (int i=0; i< neighbors.size(); i++){
         if (!(neighbors[i]->visited)){
@@ -78,20 +80,93 @@ vector<Node *> depthFirstSearch(BasicGraph& graph, Vertex* start, Vertex* end) {
 }
 
 vector<Node *> breadthFirstSearch(BasicGraph& graph, Vertex* start, Vertex* end) {
-    // TODO: implement this function; remove these comments
-    //       (The function body code provided below is just a stub that returns
-    //        an empty vector so that the overall project will compile.
-    //        You should remove that code and replace it with your implementation.)
+    queue<Vertex*> nodequeue;
+    nodequeue.push(start);
+    start->setColor(YELLOW);
+    start->visited = true;
     vector<Vertex*> path;
+
+      while (!nodequeue.empty()) { // medan kön inte är tom
+        start = nodequeue.front(); //hämtar värdet
+        nodequeue.pop(); //tar bort från kön
+        start->setColor(GREEN);
+
+        if (start == end) { //har vi kommit till slutnoden?
+            // Rekonstruera path från end till start
+            start->visited = true;
+            Vertex* current = end;
+            while (current != nullptr) {
+                path.insert(path.begin(), current);
+                current = current->previous;
+            }
+            return path;
+        }
+        Set<Vertex*> neighborsSet= graph.getNeighbors(start);
+        vector<Vertex*> neighbors(neighborsSet.begin(), neighborsSet.end()); // skapar vektor av set
+
+        for (int i=0; i < neighbors.size(); i++)
+          if (!neighbors[i]->visited) {
+            neighbors[i]->visited = true;
+            neighbors[i]->previous = start;
+            nodequeue.push(neighbors[i]);
+            neighbors[i]->setColor(YELLOW);
+          }
+      }
+
     return path;
 }
 
 vector<Node *> dijkstrasAlgorithm(BasicGraph& graph, Vertex* start, Vertex* end) {
-    // TODO: implement this function; remove these comments
-    //       (The function body code provided below is just a stub that returns
-    //        an empty vector so that the overall project will compile.
-    //        You should remove that code and replace it with your implementation.)
     vector<Vertex*> path;
+    PriorityQueue<Vertex*> pqueue;
+    //pqueue.enqueue(start, 0);
+    vector<int> allVertex;
+    for (Vertex* node : graph.getVertexSet()){
+        pqueue.enqueue(node, INFINITY);
+        node->cost = INFINITY;     
+    }
+    pqueue.changePriority(start, 0);
+    start->cost = 0;
+    for (int i = 0; i < graph.getVertexSet().size(); i++){
+        if (pqueue.peekPriority() == INFINITY){ //om den nod med lägst prioritet har kostnad INFINITY
+            return path; //returnera en empty path
+        }
+        Vertex* smallestNode = pqueue.dequeue();
+
+        if (!smallestNode->visited){ //kontrollera att smallestNode inte har markerats innan
+
+            if (smallestNode == end) { //har vi hittat end-node?
+                smallestNode->setColor(GREEN);
+                // Rekonstruera path från end till start
+                smallestNode->visited = true;
+
+                Vertex* current = end;
+                while (current != nullptr) {
+                    path.insert(path.begin(), current);
+                    current = current->previous;
+                }
+                return path;
+            }
+            smallestNode->visited = true;
+            smallestNode->setColor(GREEN); //nu har vi hanterat noden, markera den grön
+            Set<Vertex*> neighborsSet= graph.getNeighbors(smallestNode);
+            vector<Vertex*> neighbors(neighborsSet.begin(), neighborsSet.end()); // skapar vektor av set
+
+            for (int j=0; j < neighbors.size(); j++){
+                Vertex* neighbor = neighbors[j];
+                if(!neighbor->visited){
+                    neighbors[j]->setColor(YELLOW);
+                    double newWeight = graph.getArc(smallestNode, neighbor)->cost;
+                    if (neighbor->cost > (smallestNode->cost + newWeight)){
+                        neighbor->cost = smallestNode->cost + newWeight;
+                        pqueue.changePriority(neighbor, neighbor->cost);
+                        neighbor->previous = smallestNode;
+                }
+            }
+        }
+    }
+ }
+
     return path;
 }
 

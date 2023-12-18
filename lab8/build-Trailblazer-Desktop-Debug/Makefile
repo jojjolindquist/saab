@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = Trailblazer1.0.0
-DISTDIR = /home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug/.tmp/Trailblazer1.0.0
+DISTDIR = /home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug/.tmp/Trailblazer1.0.0
 LINK          = g++
 LFLAGS        = 
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
@@ -530,27 +530,27 @@ distclean: clean
 ####### Sub-libraries
 
 copyResources:
-	cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/maze01-tiny.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/maze02-tiny.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/maze03-small.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/maze04-small.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/maze05-medium.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/maze06-medium.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/maze07-large.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/maze08-large.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/maze09-huge.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/maze10-huge.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/terrain01-tiny.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/terrain02-tiny.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/terrain03-small.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/terrain04-small.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/terrain05-medium.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/terrain06-medium.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/terrain07-large.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/terrain08-large.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/terrain09-huge.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/res/terrain10-huge.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
-	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/trailblazer/lib/spl.jar" "/home/stias606/Documents/TDDD86/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/maze01-tiny.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/maze02-tiny.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/maze03-small.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/maze04-small.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/maze05-medium.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/maze06-medium.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/maze07-large.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/maze08-large.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/maze09-huge.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/maze10-huge.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/terrain01-tiny.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/terrain02-tiny.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/terrain03-small.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/terrain04-small.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/terrain05-medium.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/terrain06-medium.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/terrain07-large.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/terrain08-large.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/terrain09-huge.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/res/terrain10-huge.txt" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
+	 cp -r "/home/johli622/tddd86-ht23/lab8/trailblazer/lib/spl.jar" "/home/johli622/tddd86-ht23/lab8/build-Trailblazer-Desktop-Debug" 
 	
 
 mocclean: compiler_moc_header_clean compiler_moc_objc_header_clean compiler_moc_source_clean
@@ -659,7 +659,8 @@ trailblazer.o: ../trailblazer/src/trailblazer.cpp ../trailblazer/src/costs.h \
 		../trailblazer/lib/StanfordCPPLib/gwindow.h \
 		../trailblazer/lib/StanfordCPPLib/gtypes.h \
 		../trailblazer/lib/StanfordCPPLib/console.h \
-		../trailblazer/lib/StanfordCPPLib/private/main.h
+		../trailblazer/lib/StanfordCPPLib/private/main.h \
+		../trailblazer/lib/StanfordCPPLib/pqueue.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o trailblazer.o ../trailblazer/src/trailblazer.cpp
 
 trailblazergui.o: ../trailblazer/src/trailblazergui.cpp ../trailblazer/lib/StanfordCPPLib/error.h \
