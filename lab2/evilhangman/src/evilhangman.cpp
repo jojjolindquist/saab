@@ -204,6 +204,57 @@ string chooseDifficultFamily(vector<string>& engDictionary, const unordered_mult
        return difficultFamily.second; //returnerar ordformen
 }
 
+/* Hittar den ordfamilj med flest medlemmar och som innehåller lika många av letter som count.
+ * Om den inte hittar en familj som matchar kommer antalet medlemmar vara -1.*/
+pair<int, string> findEvilFamily(const unordered_multimap<string, string>& wordFamilies, string letter, int count){
+    pair<int, string> difficultFamily;//lagrar information om största familj på form (antal medlemmar, nyckel i multimap)
+    difficultFamily.first = -1; //ingen annan kommer ha negativt antal medlemmar
+    difficultFamily.second = "";
+    auto familiesIt = wordFamilies.begin();
+    while(familiesIt != wordFamilies.end()){
+        string key = familiesIt->first; //first innebär hämta nyckeln (k) i nyckel-värde-paret (k,v)
+        int numOfLetter = 0;
+        for (char symbol : key){ //går igenom varje symbol i nyckeln
+            if (string(1, symbol) != "-"){ //om inte "-" så är det en bokstav
+                numOfLetter++;
+            }
+        }
+        int members = wordFamilies.count(key); //räknar antalet ord (medlemmar) i varje familj
+        if (numOfLetter == count && members > difficultFamily.first){ //hittat en familj med färre antal av bokstaven?
+            difficultFamily.first = members;
+            difficultFamily.second = key;
+        }
+       advance(familiesIt, members); //ökar iteratorn med antal värden i key, så vi inte itererar genom alla par (onödigt)
+                                    //källa: https://stackoverflow.com/questions/1057529/how-to-increment-an-iterator-by-2
+    }
+    return difficultFamily;
+}
+
+/* Hittar den största ordfamilj som innehåller minst antal av bokstaven. Detta gör det i många fall mycket svårare
+ * för spelaren.*/
+string veryEvilFamily(vector<string>& engDictionary, const unordered_multimap<string, string>& wordFamilies, string letter){
+       bool familyFound = false;
+       int numOfLetters = 0;
+       pair<int, string> difficultFamily;
+       while (!familyFound){
+           difficultFamily = findEvilFamily(wordFamilies, letter, numOfLetters);
+           if(difficultFamily.first != -1){ //vi har nu hittat den största ordfamiljen med minst antal bokstäver
+               familyFound = true;
+           }
+           else{
+               numOfLetters++; //sök efter en familj med fler av den gissade bokstaven i ordet
+           }
+       }
+       vector<string> newDictionary;
+       auto familyIt = wordFamilies.find(difficultFamily.second);//returnerar iterator som börjar vid orden med firstLetter
+       for(int i = 0; i < difficultFamily.first; i++){
+           string word = familyIt->second; //second innebär hämta värdet (v) i nyckel-värde-paret (k,v)
+           newDictionary.push_back(word);
+           familyIt++;
+       }
+       engDictionary = newDictionary; //sätter vår dictionary till den nya ordfamiljen
+       return difficultFamily.second; //returnerar ordformen
+}
 
 int main() {
     bool play = true;
@@ -262,7 +313,7 @@ int main() {
                         }
                     }
                     else{
-                        mergeWordForm = chooseFamily(engDictionary, wordFamilies);
+                        mergeWordForm = veryEvilFamily(engDictionary, wordFamilies, guessedLetter);
                     }
                     if (!guessedLetterInWord(mergeWordForm)){//om den gissade bokstaven inte finns med i vår nya ordfamilj
                         guesses--; //ta bort en gissning
