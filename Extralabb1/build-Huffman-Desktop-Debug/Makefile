@@ -504,7 +504,8 @@ bitstream.o: ../Huffman/src/bitstream.cpp ../Huffman/src/bitstream.h \
 
 encoding.o: ../Huffman/src/encoding.cpp ../Huffman/src/encoding.h \
 		../Huffman/src/bitstream.h \
-		../Huffman/src/HuffmanNode.h
+		../Huffman/src/HuffmanNode.h \
+		../Huffman/src/huffmanutil.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o encoding.o ../Huffman/src/encoding.cpp
 
 huffmanmain.o: ../Huffman/src/huffmanmain.cpp ../Huffman/lib/StanfordCPPLib/simpio.h \
