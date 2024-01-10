@@ -48,9 +48,7 @@ HuffmanNode* buildEncodingTree(const map<int, int> &freqTable) {
         pqueue.pop();
         merge = new HuffmanNode(NOT_A_CHAR, (firstMax->count + secondMax->count), firstMax, secondMax);
         pqueue.push(*merge);
-
     }
-
     return merge;
 }
 
@@ -104,32 +102,38 @@ void compress(istream& input, obitstream& output) {
     strFreqTable += "}";
     output << strFreqTable;
     HuffmanNode* huffNode = buildEncodingTree(frequencyTable);
-    map<int, string> encdingMap = buildEncodingMap(huffNode);
-    encodeData(input, encdingMap, output);
+    map<int, string> encodingMap = buildEncodingMap(huffNode);
+    input.clear(); // removes any current eof/failure flags
+    input.seekg(0, ios::beg); // tells the stream to seek back to the beginning
+    encodeData(input, encodingMap, output);
     freeTree(huffNode);
 }
 
 
 void decompress(ibitstream& input, ostream& output) {
-    string  strFreqTable;
     map<int, int>  frequencyTable;
     char ch;
-    char key;
-    char value;
+    string key;
+    string value;
     bool isKey = false;
     while(ch != '}'){
         input.get(ch);
-        if (ch != '{' && ch != ':' && ch != ',' && ch != ' '){
-            if (!isKey){
-                key = ch;
+        if (ch != '{' && ch != ' '){
+           if(ch == ':' ){
                 isKey = true;
+           }else if(ch == ','){
+               frequencyTable[stoi(key)] = stoi(value);
+               isKey = false;
+               key = "";
+               value = "";
+            }else if (!isKey){
+                key += ch;
             }else {
-                value = ch;
-                frequencyTable[key] = value;
-                isKey = false;
+                value += ch;
             }
         }
     }
+    frequencyTable[stoi(key)] = stoi(value); // lägg till sista
     HuffmanNode* huffNode = buildEncodingTree(frequencyTable);
     map<int, string> encdingMap = buildEncodingMap(huffNode);
     decodeData(input, huffNode, output);
