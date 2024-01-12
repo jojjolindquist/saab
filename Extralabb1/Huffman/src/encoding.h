@@ -5,6 +5,7 @@
  *
  * Please do not modify this provided file. Your turned-in files should work
  * with an unmodified version of all provided code files.
+ * johli622 stias606
  */
 
 #ifndef _encoding_h
@@ -21,6 +22,8 @@ using namespace std;
  * See huffmanencoding.cpp for documentation of these functions
  * (which you are supposed to write, based on the spec).
  */
+
+
 map<int, int> buildFrequencyTable(istream& input);
 HuffmanNode* buildEncodingTree(const map<int, int>& freqTable);
 map<int, string> buildEncodingMap(HuffmanNode* encodingTree);

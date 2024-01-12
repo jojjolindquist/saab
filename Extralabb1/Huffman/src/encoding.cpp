@@ -1,23 +1,31 @@
-// This is the CPP file you will edit and turn in.
-// Also remove these comments here and add your own, along with
-// comments on every function and on complex code sections.
-// TODO: remove this comment header
+// Kod för att implementera Huffmancoding, dvs bygga upp en frekvenstabell och ett Huffman-träd
+// för att sedan användas för att komprimera och dekomprimera filer.
+// johli622 stias606
 
 #include "encoding.h"
 #include <queue>
 #include "huffmanutil.h"
 // TODO: include any other headers you need
 
-void preorderTraversal(HuffmanNode* root, string path, map<int, string>& encodingMap){
-    if (root->isLeaf()){
-        encodingMap[root->character] = path;
+/*
+ * Traverserar Huffman-trädet och skapar en map med koder för varje löv bestående av
+ * 1:or och 0:or beroende på om man går till vänster eller höger i trädet.
+ */
+void preorderTraversal(HuffmanNode root, string path, map<int, string>& encodingMap){
+    if (root.isLeaf()){
+        encodingMap[root.character] = path;
         return;
     }else{
-        preorderTraversal(root->zero, path + "0", encodingMap);
-        preorderTraversal(root->one, path + "1", encodingMap);
+        preorderTraversal(*root.zero, path + "0", encodingMap);
+        preorderTraversal(*root.one, path + "1", encodingMap);
     }
 }
 
+/*
+ * Bygger upp en frekvenstabell utifrån given input,
+ * räknar antalet av varje tecken och tilldelar sedan det tecknet dess frekvens
+ * i frekvenstabellen
+ */
 map<int, int> buildFrequencyTable(istream& input) {
     // ett tecken är en byte
     map<int, int> freqTable;
@@ -34,6 +42,11 @@ map<int, int> buildFrequencyTable(istream& input) {
     return freqTable;
 }
 
+/*
+ * Skappar ett kodningsträd där varje löv är ett tecken, löven placeras strategiskt ut med hjälp
+ * av en priorityqueue som sorterar tecknen baserat på deras frekvens. Metoden en map som kopplar
+ * varje tecken till en frekvens. Tecken med hög frekvens placeras högt upp i trädet.
+ */
 HuffmanNode* buildEncodingTree(const map<int, int> &freqTable) {
     priority_queue<HuffmanNode> pqueue;
     HuffmanNode* firstMax, *secondMax, *merge;
@@ -52,15 +65,23 @@ HuffmanNode* buildEncodingTree(const map<int, int> &freqTable) {
     return merge;
 }
 
+/*
+ * Bygger upp en map där varje tecken är kopplat till dess binära kodning i
+ * Huffman-trädet. Kallar på preorderTraversal som bygger upp strängen av tecknets binära kod.
+ */
 map<int, string> buildEncodingMap(HuffmanNode* encodingTree) {
     map<int, string> encodingMap;
-    preorderTraversal(encodingTree, "", encodingMap);
+    preorderTraversal(*encodingTree, "", encodingMap);
     return encodingMap;
 }
 
+/*
+ * Metoden tar in input, en map som kopplar varje tecken till en sträng som
+ * representerar en teckents binära kod i huffman-trädet och output. Med hjälp av encoding-map
+ * förvandlas input-data till binär kod som skrivs till output.
+ */
 void encodeData(istream& input, const map<int, string> &encodingMap, obitstream& output) {
     int sign;
-    cout << input.get() << endl;
     string path;
     while((sign = input.get()) != -1){ // vi har gått igenom hela filen
         path += encodingMap.at(sign);
@@ -72,6 +93,10 @@ void encodeData(istream& input, const map<int, string> &encodingMap, obitstream&
     }
 }
 
+/*
+ * Läser bitar från den givna indatafilen en i taget och går igenom kodningsträdet för att skriva det
+ * ursprungliga okomprimerade innehållet av filen till den givna utdataströmmen.
+ */
 void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
     HuffmanNode* current = new HuffmanNode(*encodingTree);
     int sign;
@@ -83,8 +108,7 @@ void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
         }
         if (current->isLeaf()){
             output.put(current->character);
-            //current = new HuffmanNode(*encodingTree);
-            current = encodingTree;
+            current = new HuffmanNode(*encodingTree);
         }
 
     }
@@ -93,6 +117,12 @@ void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
 
 }
 
+/*
+ * Den här funktionen komprimerar den givna indatafilen på den givna utdatafilen.
+ * Den läser indatafilen ett tecken i taget, bygga upp en kodning av dess innehåll och
+ * skriver en komprimerad version av den indatafilen,inklusive en header,
+ * till den specificerade utdatafilen. Funktionen byggs på övriga kodningsfunktioner.
+ */
 void compress(istream& input, obitstream& output) {
     map<int, int>  frequencyTable = buildFrequencyTable(input);
     string strFreqTable = "{";
@@ -102,44 +132,39 @@ void compress(istream& input, obitstream& output) {
     strFreqTable.pop_back();
     strFreqTable.pop_back();
     strFreqTable += "}";
-
     output << strFreqTable;
     HuffmanNode* huffNode = buildEncodingTree(frequencyTable);
-<<<<<<< HEAD
-    map<int, string> encdingMap = buildEncodingMap(huffNode);
-    input.clear(); // removes any current eof/failure flags
-    input.seekg(0, ios::beg); // tells the stream to seek back to the beginning
-    encodeData(input, encdingMap, output);
-=======
     map<int, string> encodingMap = buildEncodingMap(huffNode);
     input.clear(); // removes any current eof/failure flags
     input.seekg(0, ios::beg); // tells the stream to seek back to the beginning
     encodeData(input, encodingMap, output);
->>>>>>> refs/remotes/origin/main
     freeTree(huffNode);
 }
 
-
+/*
+ * Läser bitarna från den givna indatafilen en i taget, inklusive en header som ligger i början av filen,
+ * för att kunna skriva ursprungsinnehållet av den filen till filen specificerad av output-parametern.
+ */
 void decompress(ibitstream& input, ostream& output) {
-    map<int, int>  frequencyTable;
+    map<int, int>  frequencyTable; // ska byggas upp utifrån headern
     char ch;
     string key;
     string value;
     bool isKey = false;
-    while(ch != '}'){
-        input.get(ch);
+    while(ch != '}'){ // motsvarar slutet av headern
+        input.get(ch); // hämtar ut tecknet
         if (ch != '{' && ch != ' '){
            if(ch == ':' ){
-                isKey = true;
-           }else if(ch == ','){
-               frequencyTable[stoi(key)] = stoi(value);
-               isKey = false;
-               key = "";
+                isKey = true; // nyckeln är klar, värdet kommer efter
+           }else if(ch == ','){ // nu kommer nästa värde
+               frequencyTable[stoi(key)] = stoi(value); // sätter in nyckeln och dess värde
+               isKey = false; // nu har vi satt in key, vill hitta nästa
+               key = ""; // återställer
                value = "";
             }else if (!isKey){
-                key += ch;
+                key += ch; // bygger upp nyckeln
             }else {
-                value += ch;
+                value += ch; // bygger upp värdet
             }
         }
     }
@@ -150,17 +175,21 @@ void decompress(ibitstream& input, ostream& output) {
     freeTree(huffNode);
 }
 
+/*
+ * Frigör utrymmet för alla noder i vårt Huffman-träd
+ */
 void freeTree(HuffmanNode* node) {
     HuffmanNode* current = node;
     if (current != nullptr){
-        if (current->isLeaf()){
+        if (current->isLeaf()){ // ta bort alla löv!
             delete current;
             return;
         }
         else{
-            freeTree(current->one);
+            freeTree(current->one); // rekursivt anrop så alla löv tas bort baklänges
             freeTree(current->zero);
             delete current;
         }
     }
 }
+

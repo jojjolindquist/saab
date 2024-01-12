@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = Huffman1.0.0
-DISTDIR = /home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug/.tmp/Huffman1.0.0
+DISTDIR = /home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug/.tmp/Huffman1.0.0
 LINK          = g++
 LFLAGS        = 
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
@@ -438,31 +438,31 @@ distclean: clean
 ####### Sub-libraries
 
 copyResources:
-	cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/ababcab.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/allCharsOnce.dat" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/alphaonce.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/alphatwice.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/as.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/asciiart.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/bender.jpg" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/dictionary.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/empty.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/example.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/example2.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/excellent.wav" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/fibonacci.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/hamlet.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/hellokitty.bmp" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/large.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/larger.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/medium.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/moo.wav" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/nonrepeated.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/output" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/poem.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/short.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/singlechar.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
-	 cp -r "/home/johli622/tddd86-ht23/Extralabb1/Huffman/res/tomsawyer.txt" "/home/johli622/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/ababcab.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/allCharsOnce.dat" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/alphaonce.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/alphatwice.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/as.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/asciiart.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/bender.jpg" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/dictionary.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/empty.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/example.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/example2.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/excellent.wav" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/fibonacci.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/hamlet.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/hellokitty.bmp" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/large.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/larger.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/medium.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/moo.wav" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/nonrepeated.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/output" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/poem.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/short.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/singlechar.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
+	 cp -r "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/Huffman/res/tomsawyer.txt" "/home/stias606/Documents/TDDD86/tddd86-ht23/Extralabb1/build-Huffman-Desktop-Debug" 
 	
 
 mocclean: compiler_moc_header_clean compiler_moc_objc_header_clean compiler_moc_source_clean

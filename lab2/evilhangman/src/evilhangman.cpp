@@ -204,6 +204,59 @@ string chooseDifficultFamily(vector<string>& engDictionary, const unordered_mult
        return difficultFamily.second; //returnerar ordformen
 }
 
+/*
+ * Hittar den ordfamilj med flest medlemmar och som innehåller lika många av letters som count. Om den inte hittar en familj
+ * som matchar kommer antalet medlemmar att vara -1.
+ */
+pair<int, string> findEvilFamily(const unordered_multimap<string, string>& wordFamilies, string letter, int count){
+    pair<int, string> difficultFamily;//lagrar information om största familj på form (antal medlemmar, nyckel i multimap)
+    difficultFamily.first = -1; //ingen annan kommer ha negativt antal medlemmar
+    difficultFamily.second = "";
+    auto familiesIt = wordFamilies.begin();
+    while(familiesIt != wordFamilies.end()){
+        string key = familiesIt->first; //first innebär hämta nyckeln (k) i nyckel-värde-paret (k,v)
+        int numOfLetter = 0;
+        for (char symbol : key){ //går igenom varje symbol i nyckeln
+            if (string(1, symbol) != "-"){ //om inte "-" så är det en bokstav
+                numOfLetter++;
+            }
+        }
+        int members = wordFamilies.count(key); //räknar antalet ord (medlemmar) i varje familj
+        if (numOfLetter == count && members > difficultFamily.first){ //hittat en familj med färre antal av bokstaven?
+            difficultFamily.first = members;
+            difficultFamily.second = key;
+        }
+       advance(familiesIt, members); //ökar iteratorn med antal värden i key, så vi inte itererar genom alla par (onödigt)
+                                    //källa: https://stackoverflow.com/questions/1057529/how-to-increment-an-iterator-by-2
+    }
+    return difficultFamily;
+}
+
+/*
+ * Hittar den stösta ordfamilj som innehåller av bokstaven. Detta gör det i många fall mycket svårare för spelaren
+ */
+string veryEvilFamily(vector<string>& engDictionary, const unordered_multimap<string, string>& wordFamilies, string letter){
+    bool familyFound = false;
+    int numbOfLetters = 0;
+    pair<int, string> difficultFamily;
+    while(!familyFound){
+        difficultFamily = findEvilFamily(wordFamilies, letter, numbOfLetters);
+        if(difficultFamily.first != -1){ // vi har nu hittat största ordfamiljen med minst antal bosktäver
+            familyFound = true;
+        }else{
+            numbOfLetters ++;
+        }
+    }
+    vector<string> newDictionary;
+    auto familyIt = wordFamilies.find(difficultFamily.second);//returnerar iterator som börjar vid orden med firstLetter
+    for(int i = 0; i < difficultFamily.first; i++){
+        string word = familyIt->second; //second innebär hämta värdet (v) i nyckel-värde-paret (k,v)
+        newDictionary.push_back(word);
+        familyIt++;
+    }
+    engDictionary = newDictionary; //sätter vår dictionary till den nya ordfamiljen
+    return difficultFamily.second; //returnerar ordformen
+}
 
 int main() {
     bool play = true;
@@ -255,14 +308,14 @@ int main() {
                 if (!letterIsUsed(usedLetters, guessedLetter)){ //inte gissat denna bokstav förut
                     unordered_multimap<string,string> wordFamilies = makePartitions(engDictionary, guessedLetter);
                     string mergeWordForm;
-                    if (guesses == 2){ //om gissningar 2 (ska bli 1) ska vi välja en svårare familj till sista gissningen
+                    if (guesses == 1){ //om gissningar 2 (ska bli 1) ska vi välja en svårare familj till sista gissningen
                         string keyDiffFamily = chooseDifficultFamily(engDictionary, wordFamilies, guessedLetter);
                         if (!guessedLetterInWord(keyDiffFamily)){ //nu vet vi 1 gissning kvar
                             mergeWordForm = keyDiffFamily; //sätt mergeWordForm till svåraste familjen
                         }
                     }
                     else{
-                        mergeWordForm = chooseFamily(engDictionary, wordFamilies);
+                        mergeWordForm = veryEvilFamily(engDictionary, wordFamilies, guessedLetter);
                     }
                     if (!guessedLetterInWord(mergeWordForm)){//om den gissade bokstaven inte finns med i vår nya ordfamilj
                         guesses--; //ta bort en gissning
