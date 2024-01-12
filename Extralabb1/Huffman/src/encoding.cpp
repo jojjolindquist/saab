@@ -48,19 +48,20 @@ map<int, int> buildFrequencyTable(istream& input) {
  * varje tecken till en frekvens. Tecken med hög frekvens placeras högt upp i trädet.
  */
 HuffmanNode* buildEncodingTree(const map<int, int> &freqTable) {
-    priority_queue<HuffmanNode> pqueue;
-    HuffmanNode* firstMax, *secondMax, *merge;
+    priority_queue<HuffmanNode*> pqueue;
+    HuffmanNode* firstMax, *secondMax;
+    HuffmanNode* merge;
     for (auto it = freqTable.begin(); it != freqTable.end(); it ++){
-        HuffmanNode huffNode = HuffmanNode(it->first, it->second, nullptr); // skapar nod med tecken, frekvens, utan några barn
+        HuffmanNode* huffNode = new HuffmanNode(it->first, it->second, nullptr); // skapar nod med tecken, frekvens, utan några barn
         pqueue.push(huffNode);
     }
     while (pqueue.size() > 1){
-        firstMax = new HuffmanNode(pqueue.top());
+        firstMax = pqueue.top();
         pqueue.pop();
-        secondMax = new HuffmanNode(pqueue.top());
+        secondMax = pqueue.top();
         pqueue.pop();
         merge = new HuffmanNode(NOT_A_CHAR, (firstMax->count + secondMax->count), firstMax, secondMax);
-        pqueue.push(*merge);
+        pqueue.push(merge);
     }
     return merge;
 }
@@ -98,22 +99,21 @@ void encodeData(istream& input, const map<int, string> &encodingMap, obitstream&
  * ursprungliga okomprimerade innehållet av filen till den givna utdataströmmen.
  */
 void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
-    HuffmanNode* current = new HuffmanNode(*encodingTree);
+    HuffmanNode* current = encodingTree;
     int sign;
     while((sign = input.readBit()) != -1){
         if (sign == 1){
             current = current->one;
-        }else{
+        } else {
             current = current->zero;
         }
         if (current->isLeaf()){
             output.put(current->character);
-            current = new HuffmanNode(*encodingTree);
+            current = encodingTree; // reset current to the start of the tree
         }
-
-    }
-    input.clear(); // removes any current eof/failure flags
-    input.seekg(0, ios::beg); // tells the stream to seek back to the beginning
+     }
+     input.clear(); // removes any current eof/failure flags
+     input.seekg(0, ios::beg); // tells the stream to seek back to the beginning
 
 }
 
@@ -184,8 +184,7 @@ void freeTree(HuffmanNode* node) {
         if (current->isLeaf()){ // ta bort alla löv!
             delete current;
             return;
-        }
-        else{
+        }else{
             freeTree(current->one); // rekursivt anrop så alla löv tas bort baklänges
             freeTree(current->zero);
             delete current;
