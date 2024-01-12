@@ -108,7 +108,7 @@ void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
         }
         if (current->isLeaf()){
             output.put(current->character);
-            current = encodingTree; // reset current to the start of the tree
+            current = encodingTree; 
         }
      }
      input.clear(); // removes any current eof/failure flags
