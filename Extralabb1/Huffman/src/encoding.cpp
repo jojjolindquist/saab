@@ -5,7 +5,6 @@
 #include "encoding.h"
 #include <queue>
 #include "huffmanutil.h"
-// TODO: include any other headers you need
 
 /*
  * Traverserar Huffman-trädet och skapar en map med koder för varje löv bestående av
@@ -114,7 +113,6 @@ void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
      }
      input.clear(); // removes any current eof/failure flags
      input.seekg(0, ios::beg); // tells the stream to seek back to the beginning
-
 }
 
 /*
@@ -172,7 +170,7 @@ void decompress(ibitstream& input, ostream& output) {
     HuffmanNode* huffNode = buildEncodingTree(frequencyTable);
     map<int, string> encdingMap = buildEncodingMap(huffNode);
     decodeData(input, huffNode, output);
-    freeTree(huffNode);
+    //freeTree(huffNode);
 }
 
 /*
